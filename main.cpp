@@ -14,9 +14,9 @@
 #include "COknoGL.h"
 //#define _WIN32_WINNT 0x0500//dla Get Console Window
 #include <windows.h>
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\OdczytajGwiazdy.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\ObliczeniaGwiazd.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\RysujGwiazdy.h"
+#include "OdczytajGwiazdy.h"
+#include "ObliczeniaGwiazd.h"
+#include "RysujGwiazdy.h"
 
 
 COknoGL okno;

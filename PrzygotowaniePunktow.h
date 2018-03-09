@@ -26,12 +26,12 @@
 
 #include <GL\gl.h>
 #include <GL\glu.h>
-#include "C:\Users\BCO\Documents\NetBeansProjects\ArcBallGwiazdy\Varia.h"
+#include "Varia.h"
 #include <list>
 #include <deque>
 #include <vector>
 #include <cstdio>
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\ObliczeniaGwiazd.h"
+#include "ObliczeniaGwiazd.h"
 
 class PrzygotowaniePunktow {
     friend class RysujGwiazdy;

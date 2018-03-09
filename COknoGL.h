@@ -17,10 +17,10 @@
 #include "Varia.h"
 
 //#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\ZbiorGwiazd.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\OdczytajGwiazdy.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\OdczytWierzcholkow.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\ObliczeniaGwiazd.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\OdczytNazw.h"
+#include "OdczytajGwiazdy.h"
+#include "OdczytWierzcholkow.h"
+#include "ObliczeniaGwiazd.h"
+#include "OdczytNazw.h"
 #define ARCBALL
 #ifdef ARCBALL
 #include "ArcBall.h"
@@ -30,7 +30,7 @@
 #define BEZ_ODSWIEZANIA_KONTROLEK 4
 #define WYSWIETL_GWIAZDOZBIORY 1
 #define OD_NOWA_PRZELICZ 2
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\RysujGwiazdy.h"
+#include "RysujGwiazdy.h"
 #include "Kontrolki.h"
 //#include "UkladyPunktowMaterialnych.h"
 //#define UTWORZ_OKNO_A 11

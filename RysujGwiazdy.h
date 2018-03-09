@@ -14,11 +14,11 @@
 #ifndef RYSUJGWIAZDY_H
 #define RYSUJGWIAZDY_H
 #include <iostream>
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\OdczytajGwiazdy.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\ObliczeniaGwiazd.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\OdczytWierzcholkow.h"
+#include "OdczytajGwiazdy.h"
+#include "ObliczeniaGwiazd.h"
+#include "OdczytWierzcholkow.h"
 #include "PrzygotowaniePunktow.h"
-#include "C:\Users\BCO\Documents\NetBeansProjects\ArcBallGwiazdy\ArcBall.h"
+#include "ArcBall.h"
 #include "OdczytKolorowBMP.h"
 
 class RysujGwiazdy {

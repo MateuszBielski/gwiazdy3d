@@ -25,7 +25,7 @@
 #include <deque>
 #include <string>
 #include <list>
-#include <C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\Gwiazda.h>
+#include <Gwiazda.h>
 
 class Kontrolki {
     friend class COknoGL;

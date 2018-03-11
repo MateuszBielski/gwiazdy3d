@@ -61,16 +61,10 @@ void Gwiazda::Ustaw(Gwiazda *g) {
 }
 Gwiazda2::Gwiazda2(Gwiazda * g):nrPorzadkowyX(0),nrPorzadkowyY(0),nrPorzadkowyZ(0){
     Gwiazda::Ustaw(g);
-//    itWliscieKomorek=0;
 }
 int Gwiazda2::Parametry(std::string& dW, char parametry){//dW - do wypełnienia
     std::ostringstream osH,osM,osA,osO,osWlk,osAwlk,osBV;
-//strs << dbl;
-//std::string str = strs.str();
-    
-    
-    
-    if(parametry & HIP){dW+=" Hip ";osH<<Hip();dW+=osH.str();}
+	if(parametry & HIP){dW+=" Hip ";osH<<Hip();dW+=osH.str();}
     if(parametry & MAG){dW+=" mag ";osM<<Jm();dW+=osM.str(); }
     if(parametry & WLK_DO_WYSWIETLENIA){dW+=" wielkosc punktu";osWlk<<WielkoscDoWyswietlenia();dW+=osWlk.str(); }
     if(parametry & W_ABS){dW+=" wielkosc Abs ";osA<<JM();dW+=osA.str(); }
@@ -93,7 +87,6 @@ int Gwiazda2::Parametry(std::deque<std::string>& dParametry, char parametry){//d
     if(parametry & B_V){linia=" Barwa ";osBV<<B_v();dParametry.push_back(linia+osBV.str()); }
     //jeśli jest nazwa
     if(nazwa.size())dParametry.push_front(nazwa);
-//    if(parametry & B_V){linia=" Dystans do środka ";osBV<<B_v();dParametry.push_back(linia+osBV.str()); }
     return Hip();
 }
 
@@ -115,16 +108,9 @@ void Gwiazda2::Ustaw(float m, float M, float odl,float wlk,float AbsWlk) {
     absolutnaWielkoscDoWyswietlenia = AbsWlk;
 }
 void Gwiazda2::UstawWspolrzedne(double * w,double zmniejszenie){
-    /*      opis próby*/
-    /* pionową osią obrotu jest Y*/
-    
-//    w[0];
-//    w[1];
     double r;
     double katIobrot1[4]={-w[1],1,0,0};//deklinacja
     double katIobrot2[4]={w[0],0,1,0};//rektascencja
-    //long lz=888945722*4;//2888945722;
- //   z=2.588945722e+9;
     z=2.888945722e+9;
     x=-this->X0()/zmniejszenie;//bo trójkąty się zmniejszają w miarę odczytu dlaszych plików
     y=this->X1()/zmniejszenie;
@@ -136,10 +122,6 @@ void Gwiazda2::UstawWspolrzedne(double * w,double zmniejszenie){
     ox=x*odleglosc;
     oy=y*odleglosc;
     oz=z*odleglosc;
-    
-    //w współrzędne biegunowe
-    //z x0 i x1 utworzyć wektor, znormalizować i obrócić o kąty wynikłe ze wspó
-    
 }
 void Gwiazda2::UstawNazwe(std::string& nazwaG){
     nazwa=nazwaG;
@@ -153,31 +135,13 @@ void Gwiazda2::PokazWspolrzedneXYZ(){
 double Gwiazda2::WielkoscDoWyswietlenia(){
     
     return (double)wielkoscDoWyswietlenia;
-//    return (double)(1+pow((13-(this->Jm()))*0.22,2));
-//    return (double)(1.8*(6-this->Jm()));
-   
 }
 double Gwiazda2::AbsolutnaWlkDoWyswietlenia(){
     //największa gwiazda -10, najmniejsza 5
     //największy wyświetlany punkt 20 - wykorzystamy 15
    return (double)absolutnaWielkoscDoWyswietlenia;
-//   return (double)(1+pow((15.0-this->JM())*0.15,2));
-//   return (double)(6.0-this->JM());
 }
 float Gwiazda2::DystansDo(float cx,float cy,float cz){
-//    float gx=(float)x*odleglosc;
-//    float gy=(float)y*odleglosc;
-//    float gz=(float)z*odleglosc;
-//    
-//    float c1x=cx;
-//    float c1y=cy;
-//    float c1z=cz;
-//    //printf("\nGwiazda2::DystansDo gx %2.3f, gy %2.3f, gz %2.3f, cx %2.3f, cy %2.3f, cz %2.3f",gx,gy,gz,c1x,c1y,c1z);
-//    float kwx=pow(c1x-gx,2);
-//    float kwy=pow(c1y-gy,2);
-//    float kwz=pow(c1z-gz,2);
-//    return sqrt(kwx+kwy+kwz);
-   
     float kwx=pow(cx-ox,2);
     float kwy=pow(cy-oy,2);
     float kwz=pow(cz-oz,2);
@@ -189,7 +153,6 @@ float Gwiazda2::KwadratDystansuDo(float cx, float cy, float cz) {
     float kwy=pow(cy-oy,2);
     float kwz=pow(cz-oz,2);
     return kwx+kwy+kwz;
-    
 }
 
 float Gwiazda2::SkupienieNumerowPorzadkowych(){
@@ -201,6 +164,5 @@ float Gwiazda2::SkupienieNumerowPorzadkowych(){
 }
 Gwiazdozbior::Gwiazdozbior(std::string nK,std::string n):nazwaSkrocona(nK),nazwa(n){
     if(nazwa.length()<3)nazwa=nazwaSkrocona;
-    //printf("\n%s %s",nazwaSkrocona.c_str(),nazwa.c_str());
 }
 

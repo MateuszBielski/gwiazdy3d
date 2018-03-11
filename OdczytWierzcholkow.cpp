@@ -42,7 +42,6 @@ OdczytWierzcholkow::OdczytWierzcholkow(const char * aP) : OdczytPliku(aP), pozio
     }
     int i1 = 0;
     char c2[sizeof (int)];
-    //numeryWierzcholkow.assign(20,0);
     //20 numerów wierzchołków
     for (int i = 0; i < 20; i++) {
 
@@ -60,17 +59,11 @@ OdczytWierzcholkow::OdczytWierzcholkow(const char * aP) : OdczytPliku(aP), pozio
         for (int j = 0; j < 3; j++)vWierzcholkiPoczatkowe.at(i * 3 + j) = wierzcholkiZpliku[ktoryWierzcholek * 3 + j];
 
     }
-//    printf("\nnumery wierzcholkow");
-//    for (int i = 0; i < 20; i++) {
-//        printf("\n%d",numeryWierzcholkow[i]);
-//    }
     printf("\nodczytano 12 wierzchołkow, srodki 20 scian i numery wierzcholkow rozpoczynajacych podzial ");
     if (ifs.is_open()) {
         ifs.close();
         printf("\nzamknieto plik po odczytaniu wierzchołków");
     }
-
-    //    
 }
 
 OdczytWierzcholkow::OdczytWierzcholkow(const OdczytWierzcholkow& orig) {
@@ -191,58 +184,4 @@ void OdczytWierzcholkow::ListaWspolrzednych(std::deque<double> & wierzcholki) {
     for (int i = 0; i < 36; i++)
         wierzcholki.push_back(wierzcholkiZpliku[i]);
 }
-//void OdczytWierzcholkow::PodzielStrefeZapas(int ktoraStrefa, std::vector<double>& vNwP) {
-//    //srodek indeks pierwszej wspolrzednej środka dzielonej strefy
-//    double nW[3],wierzch[3],wR[3]; /*nowy wektor do obracania i zapisywania,wierzchołek pierwszy, od którego zaczyna się podział,
-//                                    * wektor różnicowy do wyznaczania wierzchołków pierwszych następnego podziału*/
-//    double katIobrot[4]; //kat 120 i współrzędne pierwotnego środka
-//    katIobrot[0] =-k120st;
-//    //vektor z nowymi wierzcholkami poczatkowymi najlepiej wypełnić w sposób natępujący:
-//    //mamy pierwszy nowy środek
-//    //znajdujemy różnicę do aktualnego wierzcholka początkowego
-//    //różnicę tą dodajemy do kolejnych nowych środków
-//
-//    //wyznaczenie środka pierwszego z czterech trójkatów
-//    
-//    for (int i = 0; i < 3; i++) {
-//        katIobrot[i + 1] = dSrodkiScian.at(poczatekAktualnychSrodkowScian+3*ktoraStrefa + i);/*trzeba dodać wartość poczatekAktualnychSrodkowScian, która uwzględnia wszystkie współrzędne
-//                                                               * wyliczone w poprzednim podziale*/
-//        wierzch[i]=vWierzcholkiPoczatkowe.at(3*ktoraStrefa + i);
-//        nW[i] = (katIobrot[i + 1] + wierzch[i]) / 2;
-//        //wektor różnicowy
-//        wR[i]=wierzch[i]-katIobrot[i+1];
-//    }
-//
-//    //ustalanie kolejnych trójkątów
-//    for (int j = 0; j < 3; j++) {
-//        NormujWektord(nW);
-//        for (int k = 0; k < 3; k++)dSrodkiScian.push_back(nW[k]); //dodanie współrzędnych do kolejki
-//        //dopisać należy również współrzędne wierzchołków początkowych dla następnego podziału
-//        for (int k = 0; k < 3; k++)vNwP.at(3*4*ktoraStrefa+3*j + k)=nW[k]+wR[k];
-//        printf("\n%d ustawiono nowy wierzcholek %4.4f %4.4f %4.4f",ktoraStrefa*4+j,vNwP.at(3*4*ktoraStrefa+3*j),vNwP.at(3*4*ktoraStrefa+3*j + 1),vNwP.at(3*4*ktoraStrefa+3*j + 2));
-//        ObrocPunktd(nW[0], nW[1], nW[2], katIobrot);
-//       
-//    }
-//    //na koniec dodajemy czwarty wektor,  czyli pierwotny, bo tak wynika z analizy stellarium
-//    for (int i = 1; i < 4; i++)dSrodkiScian.push_back(katIobrot[i]);
-//    //oraz ustalamy czwarty wierzchołek początkowy,
-//    for (int k = 0; k < 3; k++)vNwP.at(3*4*ktoraStrefa+9 + k)=katIobrot[k]-wR[k]; 
-//    printf("\n%d ustawiono nowy wierzcholek %4.4f %4.4f %4.4f",ktoraStrefa*4+3,vNwP.at(3*4*ktoraStrefa+9),vNwP.at(3*4*ktoraStrefa+9 + 1),vNwP.at(3*4*ktoraStrefa+9 + 2));
-//    
-////    double w4[3];
-////    for(int i=0;i<3;i++){
-////        w4[i]=(vNwP.at(3*ktoraStrefa+3 +i)+vNwP.at(3*ktoraStrefa+6 +i))/2;
-////    }
-////    NormujWektord(w4);
-////    //i ustawić w vektorze
-////    for(int i=0;i<3;i++){
-////        try{
-////            
-////        vNwP.at(3*ktoraStrefa+9 +i)=w4[i];
-////        }catch(std::out_of_range& oor){
-////            printf("\nblad dostepu do vNwP.at %s",oor.what());
-////        }
-////    }
-//
-//    
-//}
+

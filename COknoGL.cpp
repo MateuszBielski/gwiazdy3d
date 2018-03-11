@@ -16,7 +16,7 @@ LRESULT COkno::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
             GetClientRect(hWnd, &rect);
             szerokoscObszaruUzytkownika = rect.right - rect.left;
             wysokoscObszaruUzytkownika = rect.bottom - rect.top;
-            //                 UstawienieSceny(0);
+            //UstawienieSceny(0);
             break;
 
         default:
@@ -105,20 +105,7 @@ bool COkno::Init(HINSTANCE uchwytAplikacji, POINT polozenieOkna, POINT rozmiarOk
         printf("\nNie utworzono kontrolek");
         return false;
     }
-//    printf("\nprzed listaNazwPrzyciskow");
-//    std::list<std::string> listaNazwPrzyciskow;
-//    listaNazwPrzyciskow.push_back("Uran");
-//    listaNazwPrzyciskow.push_back("Neptun");
-//    listaNazwPrzyciskow.push_back("Pluton");
-//    kontrolki->PrzyciskiZlisty(listaNazwPrzyciskow);
-//    std::list<int> listaNumerowPolecen;
-//    listaNumerowPolecen.push_back(1129);
-//    listaNumerowPolecen.push_back(1187);
-//    listaNumerowPolecen.push_back(1182);
-//    listaNumerowPolecen.push_back(1137);
-//    kontrolki->PrzyciskiWgNumerowPolecen(listaNumerowPolecen);
-    
-    kontrolki->PoleWyszukiwania();
+	kontrolki->PoleWyszukiwania();
 
     return true;
 
@@ -133,15 +120,6 @@ WPARAM COkno::Run() {
         DispatchMessage(&msg);
     }
     return msg.wParam;
-    //    MSG msgKomunikat;
-    //    msgKomunikat.message = WM_NULL;
-    //    while (msgKomunikat.message != WM_QUIT) {
-    //        if (PeekMessage(&msgKomunikat, NULL, 0, 0, PM_REMOVE)) {
-    //            TranslateMessage(&msgKomunikat);
-    //            DispatchMessage(&msgKomunikat);
-    //        }
-    //    }
-
 }
 
 bool COknoGL::UstalFormatPikseli(HDC uchwytDC) const {
@@ -182,13 +160,8 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
     //        
     switch (message) {
         case WM_SIZE:
-            //Zmiana rozmiaru okna
-            //ValidateRect(uOkna1, NULL);
             UstawienieSceny(0);
             MoveWindow(uOkna1, 0, 0, szerokoscObszaruUzytkownika, wysokoscObszaruUzytkownika, true);
-            //MoveWindow(kontrolki->uOknaKontrolekD, 0, wysokoscObszaruUzytkownika-25, 360, 40, true);
-            //SetWindowPos(kontrolki->uOknaKontrolekD,uOkna1,0,wysokoscObszaruUzytkownika-25,0,0,SWP_NOSIZE|SWP_NOZORDER);
-            //            UpdateWindow(uOkna1);
             break;
 
         case WM_KEYDOWN:
@@ -196,7 +169,6 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
             //            ObliczeniaGwiazd * pTemp = 0;
             switch (wParam) {
                 case 'Z'://pokazuje gwiazdozbiory wg wprowadzonych parametrów, ukrywając wcześniej wyświetlone
-//                    wRG->WyswietlGwiazdozbiory(WPISANE_OD_NOWA);
                     WydzielGzZklawiatury();//przekazuje wykonanie do innego wątku
                     break;
                 case 'X'://ma pokazać gwiazdozbiór wybrany przez wskazanie gwiazdy
@@ -235,14 +207,11 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
                     }catch(std::exception &e){
                         printf("\nnie mozna pokazac najblizszych gwiazd");
                     }
-                    //                    wRG->WyswietlGwiazdozbiory(196,1,WPISANE_OD_NOWA);
                     break;
-                    //wRG->PokazNajblizsze();
                 case 'F'://szukanie gwiazdy wg nr hip
                 {
                     int wprowadzoneDane[3];
                     wprowadzoneDane[0] = 2;
-                    //printf("\nwcisnieto F");
                     if (wRG->PobierzNrIloscZklawiatury(wprowadzoneDane, "numer HIP"))
                         wRG->ZaznaczGwiazde(kameraX, kameraY, kameraZ, wprowadzoneDane[1]);
                     wRG->UstawKameraXYZf(kameraX, kameraY, kameraZ);
@@ -273,7 +242,6 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
                         kameraY=0.0;
                         kameraZ=0.0;
                         kameraR=0.0;
-                        //skala=1.0;
                     }
                     break;
             }
@@ -292,14 +260,8 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
             nearDoKorektySceny=kameraR!=0?0.2:nearDoKorektySceny;
             if(poprzedniNear!=nearDoKorektySceny)KorektaSceny(nearDoKorektySceny);//wywoływanie tylko gdy jest zmiana 
             poprzedniNear=nearDoKorektySceny;
-//            printf("\nskala %2.3f",skala);
-            //float kameraRdoWspolczynnika=(kameraR!=0)?kameraR:5.0;//w przypadku patrzenia z centrum
-//            wRG->UstawWspolczynnikKamery(kameraRdoWspolczynnika);
-            wRG->UstawWspolczynnikKamery((kameraR!=0)?kameraR:2.0);
+			wRG->UstawWspolczynnikKamery((kameraR!=0)?kameraR:2.0);
             wRG->PobierzUstawieniaMacierzy();
-            //wspKam = pow(2 * kameraR, 0.25);
-            //if(pauza) 
-            //printf("\nkameraR %2.4f",kameraR);
             RysujScene(0);
             wynik = 0;
             break;
@@ -309,31 +271,24 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
 
 LRESULT CALLBACK COknoGL::ProceduraOknaGL(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     long wynik = COkno::WndProc(hWnd, message, wParam, lParam);
-    //    long wynik = 0;
     switch (message) {
         case WM_CREATE:
             //Utworzenie okna           
             InitWGL(hWnd);
 
             UstawWskaznikRG(RysujGwiazdy::WskaznikRysujGwiazdy());
-//            wRG = RysujGwiazdy::WskaznikRysujGwiazdy();
             if (wRG == 0) {
                 printf("\nWM_CREATE: nie zainicjowano RysujGwiazdy");
                 return wynik;
             }
-            
-            //oBaza=wRG->OBaza();
             UstawienieSceny(0);
             unsigned short pierwszyZnak,ostatniZnak;
             pierwszyZnak=0xc582;//x82c5;
             ostatniZnak=0xc5b9;
             printf("\nPrzed stworz czcionke kody: %d %d",pierwszyZnak,ostatniZnak);
             wRG->CzcionkaBitmapowa(StworzCzcionke(false, uOkna1, "Verdana", 16, false, false,(long) pierwszyZnak,(long) ostatniZnak)); //Verdana
-//            wRG->CzcionkaBitmapowa(StworzCzcionke(false, uOkna1, "Verdana", 16, false, false, 32, 255)); //Verdana
             wRG->WydzielWybraneGwiazdozbiory(129, 9); //nie dorysowuje do istniejących, bo nie ma i nie tworzy z zaznaczonej, bo nie zaznaczona
             wRG->PrzygotujPunkty(WSZYSTKIE_W_PRZESTRZENI | LINIE | NA_SFERZE | W_PRZESTRZENI);
-            //            this->WydzielWybraneGwiazdozbiory(187, 2);
-
             break;
         case WM_DESTROY:
             UsunWGL();
@@ -342,11 +297,8 @@ LRESULT CALLBACK COknoGL::ProceduraOknaGL(HWND hWnd, UINT message, WPARAM wParam
         case WM_PAINT:
             //okno wymaga odrysowania
             RysujScene(0);
-            //ValidateRect(hWnd, NULL);
-            
             break;
-
-        case WM_RBUTTONDOWN:
+		case WM_RBUTTONDOWN:
         {
             
             POINT pozycjaMyszy;
@@ -362,7 +314,6 @@ LRESULT CALLBACK COknoGL::ProceduraOknaGL(HWND hWnd, UINT message, WPARAM wParam
         }
             break;
         case WM_LBUTTONDOWN:
-            //printf("\naktywne okno %d",GetActiveWindow());
 #ifdef ARCBALL
             MousePt.s.X = (GLfloat) LOWORD(lParam);
             MousePt.s.Y = (GLfloat) HIWORD(lParam);
@@ -389,9 +340,7 @@ LRESULT CALLBACK COknoGL::ProceduraOknaGL(HWND hWnd, UINT message, WPARAM wParam
                 if (przesuniecieKursoraMyszy.x == 0 && przesuniecieKursoraMyszy.y == 0) break;
                 //obliczenie osi i k�ta obrotu
                 if (wParam & (MK_LBUTTON)) {
-
-                    //#ifdef ARCBALL
-                    MousePt.s.X = (GLfloat) biezacaPozycjaKursoraMyszy.x;
+					MousePt.s.X = (GLfloat) biezacaPozycjaKursoraMyszy.x;
                     MousePt.s.Y = (GLfloat) biezacaPozycjaKursoraMyszy.y;
                     Quat4fT ThisQuat;
                     //wskaźnik do funkcji (w przypadku spojrzenia z centrum sfery, obroty muszą być w drugą stronę)
@@ -420,16 +369,11 @@ LRESULT CALLBACK COknoGL::ProceduraOknaGL(HWND hWnd, UINT message, WPARAM wParam
                     }
                 }
                 /*to jest miejsce, w którym należy dokonać korekty listy wyświetlanych punktów i ich nazw (identyfukatorów) z grupy wszystkie */
-                //              //if(coPokazac & WSZYSTKIE_W_PRZESTRZENI)oBaza->KtorePunktyWidac(wK,punktyWszystkichGwiazd);//docelowo, powinno też pobierać listę punktów i nazw do aktualizacji
-
-
                 wRG->PobierzPrzeksztalcenia(kameraX, kameraY, kameraZ, Transform);
                 wRG->PobierzUstawieniaMacierzy();
                 wRG->PrzygotujPunkty(WSZYSTKIE_W_PRZESTRZENI);
-                RysujScene(0);//BEZ_ODSWIEZANIA_KONTROLEK
-                //UpdateWindow(hButton);
+                RysujScene(0);
             }
-            //                        wynik=0;
             break;
 
     }
@@ -441,18 +385,17 @@ LRESULT CALLBACK COknoGL::ProceduraOknaKontrolek(HWND hWnd, UINT message, WPARAM
     std::string tekst;
     switch (message) {
         case WM_CREATE:
-            kontrolki->PrzyciskiZlisty(wRG->ListaGwiazdozbiorow());//wRG->OBaza()->dGwiazdozbiorDoPrzycisku
+            kontrolki->PrzyciskiZlisty(wRG->ListaGwiazdozbiorow());
             break;
         case WM_COMMAND:
             if(wParam>=1000 && wParam<1200){
                 try{
-                    int ilePozycji;//=(int)wParam/1000;
-                    int nrPorzadkowy;//=(int)wParam-ilePozycji*1000;
+                    int ilePozycji;
+                    int nrPorzadkowy;
                     int nrKomunikatu=(int)wParam-1000;
                     nrPorzadkowy=wRG->ListaGwiazdozbiorow().at(nrKomunikatu).NumerPorzadkowy();
                     ilePozycji=wRG->ListaGwiazdozbiorow().at(nrKomunikatu).IlePozycji();
                     printf("\n.at(nr) %d, nrPorz %d, ilePoz %d",nrKomunikatu,nrPorzadkowy,ilePozycji);
-//                    
                     kontrolki->ZmienStanPrzycisku(nrKomunikatu,wRG->PokazUkryjGwiazdozbior(nrPorzadkowy,ilePozycji)); 
                 }catch(std::exception &e) {
                     tekst = "nieprawidlowa wartosc";
@@ -489,15 +432,6 @@ LRESULT CALLBACK COknoGL::ProceduraOknaKontrolek(HWND hWnd, UINT message, WPARAM
 
             RysujScene(0);
             break;
-            //        case WM_KEYDOWN:
-            //        
-            //            //            ObliczeniaGwiazd * pTemp = 0;
-            //            switch (wParam) {
-            //                case 'Z'://pokazuje gwiazdozbiory wg wprowadzonych parametrów, ukrywając wcześniej wyświetlone
-            //                    printf("\nwpisano Z");
-            //                    break;
-            //            }
-            //            break;
         case WM_LBUTTONDOWN:
             //wyczyścić pole wpisywania
             tekst="";
@@ -539,8 +473,6 @@ int COknoGL::WyoborPunktu(POINT pozycjaKursoraMyszy) {
     glGetIntegerv(GL_VIEWPORT, viewport);
     gluPickMatrix(pozycjaKursoraMyszy.x, wysokoscObszaruUzytkownika - pozycjaKursoraMyszy.y, 8, 8, viewport);
     czas[1]=clock();
-//    printf("\nwyborPunktu odczytane parametry:");
-//    printf("\npozMyszy X: %d, viewport %d, %d, %d, %d,",(int)pozycjaKursoraMyszy.x,viewport[0],viewport[1],viewport[2],viewport[3]);
     float wsp = wysokoscObszaruUzytkownika / (float) szerokoscObszaruUzytkownika;
     if (1)
         glFrustum(-0.1, 0.1, wsp*-0.1, wsp * 0.1, nearDoKorektySceny, 400.0);
@@ -548,7 +480,6 @@ int COknoGL::WyoborPunktu(POINT pozycjaKursoraMyszy) {
         glOrtho(-3, 3, wsp*-3, wsp * 3, 0.3, 100.0);
     glMatrixMode(GL_MODELVIEW);
     //przełączanie w tryb selekcji i renderowanie sceny
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czy�ci bufory
     glRenderMode(GL_SELECT); //umieść znak komemtarza przed tym poleceniem, żeby zobaczyć co widzi myszka
     RysujScene(BEZ_SWAPBUFFERS);
     czas[2]=clock();
@@ -564,7 +495,7 @@ int COknoGL::WyoborPunktu(POINT pozycjaKursoraMyszy) {
     //interpretacja zawartosci bufora zaznaczenia
     int wynik=-1;
     if (ileTrafien > 0) {
-        //        //zwracam obiekt najbliższy kamery
+        //zwracam obiekt najbliższy kamery
         unsigned indeksNajblizszegoPunktu = buforZaznaczenia[4];
         unsigned odlegloscNajblizszegoPunktu = buforZaznaczenia[1];
         int biezacyIndeks = 0;
@@ -592,21 +523,19 @@ int COknoGL::WyoborPunktu(POINT pozycjaKursoraMyszy) {
     
 }
 
-void COknoGL::UstawienieSceny(bool rzutowanieIzometryczne) //warto�� domy�lna =false
-{ //okno OpenGL = wn�trze formy (domy�lnie)
+void COknoGL::UstawienieSceny(bool rzutowanieIzometryczne)
+{ 
     glViewport(0, 0, szerokoscObszaruUzytkownika, wysokoscObszaruUzytkownika);
 #ifdef ARCBALL
     ArcBall->setBounds((float) szerokoscObszaruUzytkownika, (float) wysokoscObszaruUzytkownika);
 #endif
     //ustawienie punktu projekcji
-    glMatrixMode(GL_PROJECTION); //prze��cznie na macierz projekcji
+    glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
     float wsp = wysokoscObszaruUzytkownika / (float) szerokoscObszaruUzytkownika;
     if (!rzutowanieIzometryczne)
-
-        //mno�enie macierzy rzutowania przez macierz perspektywy - ustalanie frustum
-        glFrustum(-0.1, 0.1, wsp*-0.1, wsp * 0.1, nearDoKorektySceny, 400.0);
+		glFrustum(-0.1, 0.1, wsp*-0.1, wsp * 0.1, nearDoKorektySceny, 400.0);
     else
         glOrtho(-3, 3, wsp*-3, wsp * 3, 0.3, 100.0);
     glMatrixMode(GL_MODELVIEW); //powr�t do macierzy widoku modelu
@@ -616,32 +545,17 @@ void COknoGL::UstawienieSceny(bool rzutowanieIzometryczne) //warto�� domy�
     glHint(GL_POINT_SMOOTH_HINT, GL_FASTEST);
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
     glEnable(GL_BLEND);
-
-    //    glDrawBuffer(GL_BACK_LEFT);                                      //obraz dla oka lewego
-    //glMatrixMode(GL_PROJECTION); glLoadIdentity(); 
-    //glFrustum(left+dx, right+dx, bottom, top, near, far);
-    //glMatrixMode(GL_MODELVIEW); glLoadIdentity();
-    //glTranslatef(EyeSep/2.0, 0.0, 0.0);
-
-
-    // równanie mieszania kolorów
+	// równanie mieszania kolorów
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //    GLfloat sizes[2];
-    //    GLfloat step;
-    //    glGetFloatv(GL_POINT_SIZE_RANGE, sizes);
-    //    glGetFloatv(GL_POINT_SIZE_GRANULARITY, &step);
-    //    printf("\nzakres wielkości: %2.4f, %2.4f, krok %0.5f",sizes[0],sizes[1],step);
-    wRG->PobierzUstawieniaMacierzy();
+	wRG->PobierzUstawieniaMacierzy();
 
 }
 void COknoGL::KorektaSceny(double nearVal){
-   // printf("\n farVal %2.3f",farVal);
-    glMatrixMode(GL_PROJECTION); //prze��cznie na macierz projekcji
+	glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     float wsp = wysokoscObszaruUzytkownika / (float) szerokoscObszaruUzytkownika;
     
     glFrustum(-0.1, 0.1, wsp*-0.1, wsp * 0.1, nearVal, 400.0);
-    //glFrustum(-0.1, 0.1, wsp*-0.1, wsp * 0.1, 0.2, 400.0);
     glMatrixMode(GL_MODELVIEW);
 }
 float sinDf(double deg) {
@@ -654,23 +568,13 @@ float cosDf(double deg) {
 
 void COknoGL::RysujScene(int wylaczenia) {
     if(!(wylaczenia & BEZ_ODSWIEZANIA_KONTROLEK))kontrolki->OdswiezOkno(WSZYSTKIE_KONTROLKI);
-
-    //    //tworzenie czcionki bitmapowej
-    //    static unsigned int czcionkaBitmapowa=NULL;
-    //    if(czcionkaBitmapowa==NULL)czcionkaBitmapowa=StworzCzcionke(false,uOkna1,"Arial CE",10,true,false,32,255);
-    //Przygotowanie bufora
+	//Przygotowanie bufora
     if(!(wylaczenia & BEZ_CLEARBUFFERS))glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //czy�ci bufory
-    glLoadIdentity(); //macierz model-widok = macierz jednostkowa
+    glLoadIdentity();
     glTranslatef(0.0, 0, -10);
-    //wypisanie tekstu
-
-
-    //    glPushMatrix();
 #ifdef ARCBALL
     glMultMatrixf(Transform.M);
-    //
 #endif
-
     //osie układu:
     glLineWidth(3.0);
     glBegin(GL_LINES);
@@ -685,7 +589,6 @@ void COknoGL::RysujScene(int wylaczenia) {
     glVertex3d(0.0, 0.0, 1.5);
     glEnd();
 
-    //glPopMatrix();
     glLoadIdentity();
 #ifdef ARCBALL
     glTranslatef(0.0, 0, -kameraR);
@@ -699,18 +602,6 @@ void COknoGL::RysujScene(int wylaczenia) {
     /*w celu przyspieszenia działania programu należy zredukować ilość wyswietlanych gwiazd
      należy określić współrzędne wektora od środka układu współrzędnych w kierunku dali prostopadle do ekranu
      * bedzie on decydował, które prostopdłościany - strefy będą widoczne - innych gwiazd nie bedzie w obliczeniach */
-    //101';.sfera
-
-
-    //        glColor3f(0.4, 0.3, 0.2);
-    //        glPushMatrix();
-    //        
-    //        GLUquadricObj * kwadryka=gluNewQuadric();
-    //        gluQuadricDrawStyle(kwadryka,GLU_FILL);
-    //        gluSphere(kwadryka,0.25,100,100);
-    //        gluDeleteQuadric(kwadryka);
-    //        
-    //        glPopMatrix();
     wRG->rgRysujScene();
     //z bufora na ekran
     

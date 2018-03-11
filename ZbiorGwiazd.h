@@ -32,9 +32,7 @@ public:
 class ZbiorGwiazd {
 public:
     ZbiorGwiazd();
-    //ZbiorGwiazd(const ZbiorGwiazd& orig);
     virtual ~ZbiorGwiazd();
-    
     void WyswietlParametryGwiazd(short, short *,short);//która strefa, jakie parametry, jak sortowane
     void WyswietlHipZpoczatkuStref(int,int);//z każdej strefy wyświetli zadaną ilość pierwszych gwiazd, jak sortowane
     void WyswietlHipListyGwiazd();

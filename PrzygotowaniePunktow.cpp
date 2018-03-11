@@ -24,8 +24,6 @@ PrzygotowaniePunktow::PrzygotowaniePunktow():coPokazac(LINIE|NA_SFERZE|W_PRZESTR
             g[i]=i/127.0;
             b[i]=i/127.0;
         }
-//    cTekstParametry=0;
-        //printf("\nprzygotowanie punktow konstruktor");
 }
 
 PrzygotowaniePunktow::PrzygotowaniePunktow(const PrzygotowaniePunktow& orig) {
@@ -44,15 +42,9 @@ void PrzygotowaniePunktow::PrzygotujPunktyDoWyswietlenia(int CoDoZmiany) {
         //i jeżeli ma być widoczne, przypisujemy nową wartość
         if (coPokazac & WSZYSTKIE_W_PRZESTRZENI){
             oBaza->KtorePunktyWidac(wK, punktyWszystkichGwiazd, listaHip,iteratoryWszystkichDoWyswietlenia);
-            //iteratoryWszystkichDoWyswietlenia.sort(wMagIteratorow);
         }
-
-        //for (int i = 0; i < 3; i++)wK[i] = wKzmieniany[i];
-        //printf("\nPrzygotujPunktyDoWyswietlenia CoZmieniono |= WSZYSTKIE_W_PRZESTRZENI");
-        //funkcja KtrorePunktyWidac powinno zwrócić jakąś listę, lub w inny sposób przekazać dane do przygotowania Nazw do wyświetlenia
-
-    }
-    //   if ((coPokazac & WSZYSTKIE_W_PRZESTRZENI) && punktyWszystkichGwiazd.empty())oBaza->ListaWspolrzednychZOdleglosciami(punktyWszystkichGwiazd);
+         //funkcja KtrorePunktyWidac powinno zwrócić jakąś listę, lub w inny sposób przekazać dane do przygotowania Nazw do wyświetlenia
+	}
     //ponieważ poniższe metody generalnie dodają nowe punkty, to trzeba wprowadzić warunek, że jeśli kontenery nie są puste to nie robią
     // pozostałe w pętlach, bo gwiazdozbiorów może być kilka
     int ileGZ = voGwiazdozbior.size();
@@ -70,7 +62,6 @@ void PrzygotowaniePunktow::PrzygotujPunktyDoWyswietlenia(int CoDoZmiany) {
         if (coPokazac & W_PRZESTRZENI){
             for (int i = 0; i < ileGZ; i++)
             voGwiazdozbior.at(i)->ListaWspolrzednychZOdleglosciami(punktyGwiazdWprzestrzeni,iteratoryWybranychDoWyswietlenia);
-            //iteratoryWybranychDoWyswietlenia.sort(wMagIteratorow);
         }
              
     }
@@ -98,29 +89,23 @@ void PrzygotowaniePunktow::PrzygotujNazwyDoWyswietlania(int CoZmieniono, std::li
             tIdoListyHip[1]=hipWyswietlanychGwiazd.end();
             //poprzez dekrementację
             for(int i=0;i<ileDodano;i++)tIdoListyHip[1]--;
-            //printf("\ndodano nr hip dla %d gwiazd",ileDodano);
         }
 
     }
     //wstawić dane wszystkich gwiazd, bedą one na końcu
-    /*
-    tIdoListyHip[1] = oBaza->ListaHip(hipWyswietlanychGwiazd, hipWyswietlanychGwiazd.begin()++); //drugi argument wskazuje miejsce, od którego ma wstawiać
-     */
-    //ponieważ tIdoListyHip[1] zawiera iterator do pierwszego elementu danych oBaza->ListaHip to przed nim mozemy wstawić
+	//ponieważ tIdoListyHip[1] zawiera iterator do pierwszego elementu danych oBaza->ListaHip to przed nim mozemy wstawić
     //dane grupy wydzielonych gwiazdozbiorów
     if (CoZmieniono & (LINIE | NA_SFERZE | W_PRZESTRZENI)) {
         //zerujemy to, co dotyczy gwiazdozbiorów
         hipWyswietlanychGwiazd.erase(tIdoListyHip[0], tIdoListyHip[1]);
         for (int i = 0; i < voGwiazdozbior.size(); i++)voGwiazdozbior.at(i)->ListaHip(hipWyswietlanychGwiazd, tIdoListyHip[1]);
         tIdoListyHip[0] = hipWyswietlanychGwiazd.begin(); //dane pierwszej grupy zaczynają się od początku
-        //printf("\nPrzygotujNazwyDoWyswietlania zmiana gwiazdozbiorow rozmiar listy %d", hipWyswietlanychGwiazd.size());
     }
    
 }
 
 int PrzygotowaniePunktow::UsunZlistyPokazywanychGwiazdozbiorow(int nrGwiazdozbioru) {
     //na której pozycji znajduje się szukany numer?
-    
     std::list<int>::iterator it=numeryUzywanychGwiazdozbiorow.begin();
     int ktoraPozycja=0;
     bool znaleziono=false;
@@ -128,17 +113,13 @@ int PrzygotowaniePunktow::UsunZlistyPokazywanychGwiazdozbiorow(int nrGwiazdozbio
         if(nrGwiazdozbioru==*it){
             numeryUzywanychGwiazdozbiorow.erase(it);
             znaleziono=true;
-            //printf("\nznaleziono numer na liscie UsunZlistyPokazywanychGwiazdozbiorow ");
-            break;
+			break;
         }
         ktoraPozycja++;
         it++;
     }
-    //printf("\nUsunZlistyPokazywanychGwiazdozbiorow ktoraPozycja %d rozmiar listy %d",ktoraPozycja,numeryUzywanychGwiazdozbiorow.size());
     if (znaleziono)return ktoraPozycja;
-    //printf("\nnie znaleziono numeru UsunZlistyPokazywanychGwiazdozbiorow ");
     return -1;
-    
 }
 
 void PrzygotowaniePunktow::UstawTabliceKolorow(unsigned char * pKolor,int dlugosc){
@@ -151,26 +132,18 @@ void PrzygotowaniePunktow::UstawTabliceKolorow(unsigned char * pKolor,int dlugos
         r[i]=(float)pKolor[2+ktory*3]/255.0;
         
     }
-    //sprawdzenie 
-//    printf("\nodczytano kolory: ");
-//    for(int i=0;i<128;i++){
-//        printf("\n%d r: %2.2f,g: %2.2f,b: %2.2f",i,r[i],g[i],b[i]);
-//    }
 }
 
 void PrzygotowaniePunktow::PokazEtykietyObiektow(listaItLG& listaNazw,bool * czyMoznaWyswietlic,int coWyswietlic){
     iteratorLitLG itNajwiekszych=listaNazw.begin();
     int rozmiarItNajwiekszych=listaNazw.size();
     int ileWyswietlac=rozmiarItNajwiekszych;
-//    int ileWyswietlac=rozmiarItNajwiekszych/(0.5*wspKam);
     int licznik=0;
-    //printf("\nwspKam %2.3f",wspKam);
     //równomierne rozmieszczenie napisów
     //polega na tym, że ekran dzielimy na przylegające prostokąty, jeżeli w danym prostokącie jest już napis, to kolejnego napisu w nim nie wyświetlamy
     //na początek siatka 10x10
     
-    
-    float pozycjaNapisu[3];//w trzech wymiarach
+     float pozycjaNapisu[3];//w trzech wymiarach
     double pozycjaNaEkranie[3];
     int ktoraPoziomo,ktoraPionowo,pozycjaWtablicy,kolorDuzych;
     
@@ -208,10 +181,6 @@ void PrzygotowaniePunktow::PokazEtykietyObiektow(listaItLG& listaNazw,bool * czy
         if(coWyswietlic & SYMBOL)etykieta+=" "+(*itNajwiekszych)->Symbol();
         if(etykieta.empty() && (coWyswietlic & HIP))etykieta=(*itNajwiekszych)->Hip();
         Wyswietlaj(czcionkaBitmapowa,32,"%s",etykieta.c_str());
-//        printf("\n%s",etykieta.c_str());
-//        if(!(*itNajwiekszych)->Nazwa().empty())Wyswietlaj(czcionkaBitmapowa,32,"%s ",(*itNajwiekszych)->Nazwa().c_str());
-//        else if((coWyswietlic & SYMBOL) && !(*itNajwiekszych)->Symbol().empty())Wyswietlaj(czcionkaBitmapowa,32,"%s",(*itNajwiekszych)->Symbol().c_str());
-//        else if(coWyswietlic & HIP)Wyswietlaj(czcionkaBitmapowa,32,"%d",(*itNajwiekszych)->Hip());
         czyMoznaWyswietlic[pozycjaWtablicy]=false;
     //ilość wyświetlanych powinna zmieniać się w zależności od powiększenia
         if(licznik++>ileWyswietlac)break;
@@ -243,13 +212,10 @@ void PrzygotowaniePunktow::PrzygPktRysujScene(){
     
     while (i < punktyGwiazdWprzestrzeni.size()) {
         idGwP = *itn[0]++; //iterator do odpowiedniego miejsca na liście z aktualnymi hipami gwiazd
-//        float wspKoloru=(float)punktyGwiazdWprzestrzeni[i++];
-//        glColor3f(0.5+wspKoloru*1.45,0.55-abs(0.38-wspKoloru), 1.0-wspKoloru*2.0);
         int nrKoloru=(int)punktyGwiazdWprzestrzeni[i++];
         glColor3f(r[nrKoloru],g[nrKoloru],b[nrKoloru]);
         wielkosc = (float) (punktyGwiazdWprzestrzeni[i++]) / wspKam;
         glPointSize(wielkosc);
-        //printf("\n%2.3f",wielkosc);
         glLoadName(idGwP);
 
         if (idGwP == idWybranegoPunktu) {
@@ -258,8 +224,6 @@ void PrzygotowaniePunktow::PrzygPktRysujScene(){
             cY = (float) -punktyGwiazdWprzestrzeni[i++];
             cX = (float) -punktyGwiazdWprzestrzeni[i--];
             i--;
-//            glRasterPos3f(-cX,-cY,-cZ);
-//            Wyswietlaj(czcionkaBitmapowa,32,"Hip %d",idWybranegoPunktu);
             glColor3f(0.85, 0.05, 0.75);
         }
         glBegin(GL_POINTS);
@@ -278,14 +242,10 @@ void PrzygotowaniePunktow::PrzygPktRysujScene(){
     glPushName(12);
     int idGnS = 0; //identyfikator gwiazd na sferze
 
-
-
     while (i < punktyGwiazdNaSferze.size()) {
         wielkosc = (float) (punktyGwiazdNaSferze[i++]) / wspKam;
         glPointSize(wielkosc);
-        //printf("\n%2.3f",wielkosc);
         try {
-
             idGnS = *itn[1]++;
         } catch (std::exception& e) {
             printf("\nBlad iteratora Rysuj Scene %s", e.what());
@@ -303,7 +263,6 @@ void PrzygotowaniePunktow::PrzygPktRysujScene(){
         glVertex3d(punktyGwiazdNaSferze[i++], punktyGwiazdNaSferze[i++], punktyGwiazdNaSferze[i++]);
         glEnd();
         if (idGnS == idWybranegoPunktu)glColor3f(0.45, 0.75, 0.45);
-        //glColor3f(0.95, 0.95, 0.05);
     }
 
     glPopName();
@@ -334,44 +293,27 @@ void PrzygotowaniePunktow::PrzygPktRysujScene(){
     glPushName(8);
     int idWg = 0; //identyfikator wszystkich gwiazd w przestrzeni
 
-    
-    //glColor3f(0.65,0.65,0.76);
     i = 0;
-    //wielkosc = 1;
-    //printf("\nprzed while, rozmiar punktyWszystkichGwiazd %d ",punktyWszystkichGwiazd.size());
     while (i < punktyWszystkichGwiazd.size()) {
         int nrKoloru=(int)punktyWszystkichGwiazd[i++];
-//        glColor3f(0.5+wspKoloru*1.5, 0.70-abs(0.15-wspKoloru), 1.0-wspKoloru*2.5);
-//        glColor3f(0.7*(0.5+wspKoloru*1.45),0.7*(0.55-abs(0.38-wspKoloru)),0.7*( 1.0-wspKoloru*2.2));
         glColor3f(0.8*r[nrKoloru],0.8*g[nrKoloru],0.8*b[nrKoloru]);
         wielkosc = (float) (punktyWszystkichGwiazd[i++]) / wspKam;
         glPointSize(wielkosc);
-        //printf("\n%2.3f",wielkosc);
-        //        printf("\nprzed glLoadName(identyfikator)");
         idWg = *itn[3]++;
         glLoadName(idWg);
-        //printf("\n i %d,punktyGwiazdWprzestrzeni[i]=%4.4f",i,punktyGwiazdWprzestrzeni[i]);
-
         if (idWg == idWybranegoPunktu) {
             cZ = (float) -punktyWszystkichGwiazd[i++];
             cY = (float) -punktyWszystkichGwiazd[i++];
             cX = (float) -punktyWszystkichGwiazd[i--];
             i--;
-//            glRasterPos3f(-cX,-cY,-cZ);
-//            Wyswietlaj(czcionkaBitmapowa,32,"Hip %d",idWybranegoPunktu);
             glColor3f(0.05, 0.95, 0.05);
         }
         glBegin(GL_POINTS);
         glVertex3d(punktyWszystkichGwiazd[i++], punktyWszystkichGwiazd[i++], punktyWszystkichGwiazd[i++]);
         glEnd();
-//        if (idWg == idWybranegoPunktu) {
-//            //printf("\nprzywrocenie koloru po wybranym punkcie");
-//            glColor3f(0.7, 0.7, 0.9);
-//        }
     }
     glPopName();
    glPopName();
-    
     
     //nazwy największych gwiazd z wybranych gwiazdozbiorów
     //nazwy największych spośród wszystkich pozostałych widocznych
@@ -386,33 +328,22 @@ void PrzygotowaniePunktow::PrzygPktRysujScene(){
 
     }
     
-//  glRasterPos3f(-5.0f,3.0f,-10.0f);
-//        PiszZnaki(czcionkaBitmapowa);
 
-//od tego miejsca powinna zaczynać się podgrupa nazw
-//    glLoadName(7);
-//    glPushName(6);
-   
+	//od tego miejsca powinna zaczynać się podgrupa nazw
     //parametry wybranej gwiazdy
     
     if(!dsParametryDoWyswietlenia.empty()){
         glPushMatrix();
         glLoadIdentity();
-//        glTranslatef(-5.0, 2.8, -10.0);
         if(iKolorTekstu>127)iKolorTekstu=127;//nie możemy przekraczać zakresu tablic r[],g[],b[]
         glColor3f(r[iKolorTekstu],g[iKolorTekstu],b[iKolorTekstu]);
         
         glNormal3f(0,0,1);
         std::deque<std::string>::iterator dIt=dsParametryDoWyswietlenia.begin();
         float fPozY=2.8;//2.8
-        //int iPozY=100;
-        //int i=34;
         while(dIt!=dsParametryDoWyswietlenia.end()){
-//            glLoadName(i++);
             
             glRasterPos3f(-5.0f,fPozY-=0.3,-10.0f);
-//            glRasterPos2i(100,iPozY);
-            //iPozY+=20;
             Wyswietlaj(czcionkaBitmapowa,32,"%s",(*dIt++).c_str());
         }
         glPopMatrix();

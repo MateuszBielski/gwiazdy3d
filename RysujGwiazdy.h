@@ -62,8 +62,6 @@ private:
     PrzygotowaniePunktow * punkty;
     PodzialNaKomorki * podzial;
     OdczytKolorowBMP * ok;
-    
-    
     //konieczny jest obiekt, lub w innej formie przechowywane dane odnośnie wszytskich parametrów uzywanych w programie, a przede wszystkim podział na 
     //komórki, współczynniki a także adresy plików - rzeczy te powinny być odczytywane z pliku 
 };

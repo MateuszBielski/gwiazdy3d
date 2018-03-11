@@ -18,14 +18,6 @@
 
 #define BINARNIE 0
 #define TEKSTOWO 1
-
-
-
-
-
-//sortowanie
-   
-
 class OdczytPliku {
 public:
     OdczytPliku();
@@ -40,10 +32,6 @@ protected:
     std::ifstream ifs;
     int OdczytajKolejneLinie(std::ifstream &);
     std::deque<std::string> linieOdczytane;//bez analizy i podziałów
-    
-   
 };
-
-
 #endif /* ODCZYTPLIKU_H */
 

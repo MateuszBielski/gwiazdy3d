@@ -16,7 +16,6 @@
 OdczytKolorowBMP::OdczytKolorowBMP() {
 }
 OdczytKolorowBMP::OdczytKolorowBMP(const char * aP):OdczytPliku(aP),bfh(0),bih(0),tablicaKolorow(0),dlugoscTablicy(1) {
-    //if(ifs.is_open())printf("\nOdczytKolorowBMP plik otwarty");
 }
 
 OdczytKolorowBMP::OdczytKolorowBMP(const OdczytKolorowBMP& orig) {

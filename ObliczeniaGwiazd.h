@@ -24,9 +24,6 @@
 #include <time.h>
 #include <process.h>
 #include <map>
-//#define NA_SFERZE 3
-//#define W_PRZESTRZENI 7
-//#include <iterator>
 
 
 class ObliczeniaGwiazd : public ZbiorGwiazd{
@@ -46,14 +43,11 @@ public:
     void PobierzTlumaczenie(const char *,int);
     void PrzydzielDoStrefPrzestrzennych(std::list<Gwiazda2>&);//funkcja występuje w początkowej fazie w funkcji ustaw indeksy, powinna być też używana każdorazowo, po oddaniu gwiazd z gwiazdozbioru do bazy
    float ObliczDystans(float,float,float,int);//odległość od punktu do gwiazdy o numerze hip
-   //void NajblizszeGwiazdyZapas(int);//według numeru hip
    bool NajblizszeGwiazdy(int);//według numeru hip
-    //void PrzydzielDoStrefPrzestrzennychZapas(std::list<Gwiazda2>&);//funkcja występuje w początkowej fazie w funkcji ustaw indeksy, powinna być też używana każdorazowo, po oddaniu gwiazd z gwiazdozbioru do bazy
     int PobierzGwiazdozbiory(OdczytNazw * ,OdczytNazw * );//uzupełnia składowe: KkolejneHip, kolejneSymbole, itd.//
     void PobierzPelneNazwyGwiazdozbiorow(OdczytNazw *);
     int PobierzNazwyGwiazd(OdczytNazw *);
     int KtorePunktyWidac(float *,std::deque<double>&, std::list<int>& ,listaItLG &);
-    //int KtorePunktyWidacZapas(float *,std::deque<double>&, std::list<int>& );
     int ListaWspolrzednych(int,std::deque<double> &);
     int ListaWspolrzednychZOdleglosciami(std::deque<double> & lista,listaItLG &);
     int ListaWspolrzednychParPunktow(std::deque<double> & );
@@ -89,16 +83,12 @@ protected:
     PodzialNaKomorki * podzial;
     
     /***przenieść do PodzialNaKomorki*****/
-//    listaItLG lGwiazdyWkomorkach;//zawierać będzie iteratory do wyszystkich gwiazd ułożonych kolejno komórkami
-//    iteratorLitLG poczatkiKomorek[4682];//1+8+64+512+4096+1 na ostatniej pozycji będzie koniec listy czyli lGwiazdy.end()
-    
 };
 //funkcja do osobnego wątku
 typedef bool (ObliczeniaGwiazd::*WFbi)(int);//wskaźnik funkcyjny bool int
 class ParametryWatkuObliczenGwiazd{
 public:
     ObliczeniaGwiazd * oBaza;
-    //int * adrHip;
     int hip;
     //wskaźnik na funkcję
     WFbi wskaznik;

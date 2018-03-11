@@ -49,7 +49,6 @@ private:
     std::deque<double> punktyWszystkichGwiazd;
     std::deque<double> punktyLinii;
     std::deque<double> punktyGwiazdNaSferze;
-//    std::deque<double> punktyGwiazdNajblizszych;
     std::deque<double> punktyGwiazdWprzestrzeni;
     
     listaItLG iteratoryWybranychDoWyswietlenia;//do wyświetlenia nazw największych spośród wybranego gwiazdozbioru
@@ -75,15 +74,8 @@ private:
     int coPokazac;
     //napisy i teksty
     unsigned int czcionkaBitmapowa;
-    //std::deque<const char *> dcTekstParametry;//do wyswietlenia w metodzie PrzygPktRysujScene()
     std::deque<std::string> dsParametryDoWyswietlenia;//parametry gwiazdy zaznaczonejdo wyswietlenia w metodzie PrzygPktRysujScene()
     int iKolorTekstu;
-    
-    
-    /*******parametry do podziału na komórki************/
-    
-   
-
 };
 
 #endif /* PRZYGOTOWANIEPUNKTOW_H */

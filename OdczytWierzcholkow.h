@@ -36,7 +36,6 @@ public:
     //do zrobienia funkcja, która dzieli na wektory
 protected:
     void PodzielStrefe(int,std::vector<double>&);
-    //void PodzielStrefeZapas(int,std::vector<double>&);
     short poziom;//na którym aktualnie poziomie jestesmy;
     int poczatekAktualnychSrodkowScian;
     double k120st=2*3.14159/3;//120 stopni

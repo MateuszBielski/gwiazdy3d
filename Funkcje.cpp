@@ -73,7 +73,6 @@ void Zamien(char * z) {
     }
 }
 void Zamien(char * z,short rozmiar) {
-    //short ile = sizeof (double);
     char tz[rozmiar];
     for (int i = 0; i < rozmiar; i++) {
         tz[rozmiar-1 - i] = z[i];
@@ -134,21 +133,12 @@ int SortujIndeksy(float * tWartosci,int * rekordyZwartosciami,int nrRekorduPocza
     int i=nrRekorduPoczatkowego;
     int rekordZnajmniejszaWartoscia=i;
     float min=tWartosci[rekordyZwartosciami[i]];
-    //printf("\ni: %d\n",i);
-    //wyszukanie rekordu z najmniejszą wartością
-//    printf("\ni: %d,rekZwartosciami[i]: %d, wartosc: %2.3f ",i,rekordyZwartosciami[i],tWartosci[rekordyZwartosciami[i]]);
-//    printf("aktualnie rznw %d, min %2.2f",rekordZnajmniejszaWartoscia,min);
-    while(++i<rozmiar){
-//        printf("\ni: %d,rekZwartosciami[i]: %d, wartosc: %2.3f ",i,rekordyZwartosciami[i],tWartosci[rekordyZwartosciami[i]]);
-//        printf("%d, ",rekordyZwartosciami[i]);
+     while(++i<rozmiar){
         if(tWartosci[rekordyZwartosciami[i]]<min){
             min=tWartosci[rekordyZwartosciami[i]];
             rekordZnajmniejszaWartoscia=i;
         }
-//        printf("aktualnie rznw %d, min %2.2f",rekordZnajmniejszaWartoscia,min);
     }
-    
-    //printf("\nmin %2.3f, pozycjaRekordu %d ",min,rekordZnajmniejszaWartoscia);
     //jeżeli minimum leży poza pierwszym elementem, to trzeba je ze sobą zamienić
   
     if(nrRekorduPoczatkowego!=rekordZnajmniejszaWartoscia){
@@ -156,30 +146,20 @@ int SortujIndeksy(float * tWartosci,int * rekordyZwartosciami,int nrRekorduPocza
         rekordyZwartosciami[nrRekorduPoczatkowego]=rekordyZwartosciami[rekordZnajmniejszaWartoscia];
         rekordyZwartosciami[rekordZnajmniejszaWartoscia]=temp;
         wynik = 1;
-        //printf("\nrekordyZwartosciami[nrRekorduPoczatkowego] %d",rekordyZwartosciami[nrRekorduPoczatkowego]);
     }
-//    printf("\nzawartosc tablicy rekordyZwartosciami[] po ewentualnej zamianie\n");
-//    for(int i=0;i<rozmiar;i++)printf(" %d,",rekordyZwartosciami[i]);
-    //printf("po zamianie tIndeksy[lewyBrzeg] %d",tIndeksy[lewyBrzeg]);
-    
-    //if(++nrRekorduPoczatkowego<rozmiar-1)wynik+=SortujIndeksy(tWartosci,rekordyZwartosciami,nrRekorduPoczatkowego,rozmiar);
-    return wynik;
+	return wynik;
 }
 double Rad_To_Deg(double r){return r*180/3.14159;}
 double Rad_To_hRekt(double r){return r*12/3.14159;} 
 double Deg_To_Rad(double d){return d*3.14159/180;}
 void xyz_to_LF(double * d, double* s) {
-    //d - docelowy s- żródłowy
     d[0] = atan2(s[0], s[2]);
     d[1] = asin(s[1]);
     d[0] < 0 ? d[0] = 2 * 3.14159 + d[0] : d[0];
 }
 void ObrocPunktd(double & x0,double & y0,double & z0,double * katIobrot){
-    //float d[3]={3,L,F};
-	//float w[3];
-    double w[3];
+     double w[3];
     w[0]=x0;w[1]=y0;w[2]=z0;
-	//SferToXYZ_LF_to_xyz(d,w);
 	double sinFi=sin(katIobrot[0]);
 	double cosFi=cos(katIobrot[0]);
 	double x=katIobrot[1], y=katIobrot[2], z=katIobrot[3];
@@ -193,10 +173,10 @@ void ObrocPunktd(double & x0,double & y0,double & z0,double * katIobrot){
 	m[6]=z*x*(1-cosFi)-y*sinFi;
 	m[7]=z*y*(1-cosFi)+x*sinFi;
 	m[8]=cosFi+pow(z,2)*(1-cosFi);
-	double x2,y2,z2;							//printf("macierz\n");
-	x0=m[0]*w[0]+m[1]*w[1]+m[2]*w[2];	//printf("%4.3f  %4.3f  %4.3f\n",m[0],m[1],m[2]);
-	y0=m[3]*w[0]+m[4]*w[1]+m[5]*w[2];	//printf("%4.3f  %4.3f  %4.3f\n",m[3],m[4],m[5]);
-	z0=m[6]*w[0]+m[7]*w[1]+m[8]*w[2];	//printf("%4.3f  %4.3f  %4.3f\n",m[6],m[7],m[8]);
+	double x2,y2,z2;
+	x0=m[0]*w[0]+m[1]*w[1]+m[2]*w[2];
+	y0=m[3]*w[0]+m[4]*w[1]+m[5]*w[2];
+	z0=m[6]*w[0]+m[7]*w[1]+m[8]*w[2];
 	
 }
 void NormujWektord(double * w){
@@ -206,7 +186,7 @@ void NormujWektord(double * w){
     w[1]/=dlugosc;
     w[2]/=dlugosc;
 }
- void KatIWektorObrotuMiedzyWektoramid(double * wynik,double * w1,double * w2)//double * wynik,double * wektor1,double * wektor2
+ void KatIWektorObrotuMiedzyWektoramid(double * wynik,double * w1,double * w2)
 {
      NormujWektord(w1);
      NormujWektord(w2);

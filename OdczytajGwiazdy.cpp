@@ -56,8 +56,6 @@ int OdczytajGwiazdy::PrzeczytajStrefy(std::ifstream & ifs) {
 void OdczytajGwiazdy::PrzeczytajGwiazdy(std::ifstream & ifs) {
     gwiazda = new Gwiazda[ileGwiazd];
     printf("\nczytanie %d gwiazd", ileGwiazd);
-    //printf(" ; rozmiary Gwiazda %d Gwiazda2 %d", sizeof (Gwiazda), sizeof (Gwiazda2));
-
     for (int i = 0; i < ileGwiazd; i++) {
         ifs.read((char*) (gwiazda + i), sizeof (Gwiazda));
     }

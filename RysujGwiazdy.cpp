@@ -20,9 +20,6 @@
 RysujGwiazdy * RysujGwiazdy::wskaznikRysujGwiazdy = 0;
 
 RysujGwiazdy::RysujGwiazdy() : punkty(0), oBaza(0), podzial(0), ok(0) {
-
-
-    //std::cout<<"RysujGwiazdy Konstruktor wskaznikRysujGwiazdy: "<<wskaznikRysujGwiazdy;
 }
 
 RysujGwiazdy::RysujGwiazdy(const RysujGwiazdy& orig) {
@@ -67,7 +64,6 @@ void RysujGwiazdy::Inicjuj() {
         for (int i = 0; i < 3; i++)og[i] = new OdczytajGwiazdy(adres[i].c_str());
     } catch (std::exception& e) {
         printf("\nproblem z odczytem gwiazd %s", e.what());
-        //for (int i = 0; i < 3; i++)delete og[i];
     }
     try {
         ow = new OdczytWierzcholkow(adres[4].c_str());
@@ -98,13 +94,12 @@ void RysujGwiazdy::Inicjuj() {
     } catch (std::exception& e) {
         printf("\nProblem z Obliczaniem Gwiazd %s", e.what());
     }
-    //printf("\npo odczycie nazw");
     try {
         on = new OdczytNazw(adres[3].c_str());
         nazwyGwiazd = new OdczytNazw(adres[7].c_str());
         nazwyGwiazdozbiorow = new OdczytNazw(adres[8].c_str());
         oBaza->PobierzTlumaczenie(adres[9].c_str(),11326);
-        oBaza->PobierzGwiazdozbiory(on,nazwyGwiazdozbiorow);//wwypełnia również nazwami i liczbami porządkowymi kolejkę gwiazdozbiory do przycisku,
+        oBaza->PobierzGwiazdozbiory(on,nazwyGwiazdozbiorow);//wypełnia również nazwami i liczbami porządkowymi kolejkę gwiazdozbiory do przycisku,
         
     } catch (std::exception& e) {
         printf("\nnie można pobrać gwiazdozbiorów %s", e.what());
@@ -117,8 +112,6 @@ void RysujGwiazdy::Inicjuj() {
         oBaza->UstawIndeksy();
         komunikat="pobierz nazwy gwiazd";
         oBaza->PobierzNazwyGwiazd(nazwyGwiazd);
-//        komunikat="pobierz nazwy gwiazdozbiorow";
-//        oBaza->PobierzPelneNazwyGwiazdozbiorow(nazwyGwiazdozbiorow);
         komunikat="dodaj kolejne poziomy jako gwiazdozbiory";
         oBaza->DodajKolejnePoziomyJakoGwiazdozbiory();
     } catch (std::exception& e) {
@@ -134,8 +127,6 @@ void RysujGwiazdy::Inicjuj() {
     }
     ok->PrzeczytajNaglowki();
     punkty->UstawTabliceKolorow(ok->TablicaKolorowChar(), ok->DlugoscTablicy());
-
-
     //klasa jest zaprzyjaźniona, więc nie ma potrzeby tworzyć i uzywać akcesora
     punkty->oBaza = this->oBaza;
     try {
@@ -151,8 +142,6 @@ void RysujGwiazdy::Inicjuj() {
         printf("\nProblem z usunięciem obiektów %s", e.what());
     }
     printf("\nzwolniono pamiec po wskaznikach og,ow,on,op,ok");
-
-
 }
 
 void RysujGwiazdy::KopiujUstawienia(RysujGwiazdy* rg) {
@@ -167,7 +156,6 @@ void RysujGwiazdy::KopiujUstawienia(RysujGwiazdy* rg) {
     //listę widzianych wcześniej gwiazdozbiorów, trzeba by jakoś na piechotę skopiować
     //oto lista z numerami:
     std::list<int>::iterator it,kon;
-    //this->punkty->numeryUzywanychGwiazdozbiorow=rg->punkty->numeryUzywanychGwiazdozbiorow;
     it=rg->punkty->numeryUzywanychGwiazdozbiorow.begin();
     kon=rg->punkty->numeryUzywanychGwiazdozbiorow.end();
     while(it!=kon){
@@ -183,7 +171,6 @@ void RysujGwiazdy::KopiujUstawienia(RysujGwiazdy* rg) {
         }
         it++;
     }
-//        printf("\n %d",*it++);
     this->punkty->PrzygotujPunktyDoWyswietlenia(WSZYSTKIE_W_PRZESTRZENI | LINIE | NA_SFERZE | W_PRZESTRZENI);
 }
 
@@ -213,7 +200,6 @@ void RysujGwiazdy::WyswietlGwiazdozbiory(int jakWyswietlac) {
             PokazKolejnyGwiazdozbior(wprowadzoneDane[1]);
             break;
     }
-    //printf("\nRysujGwiazdy::WyswietlGwiazdozbiory przed punkty->PrzygotujPunktyDoWyswietlenia");
     punkty->PrzygotujPunktyDoWyswietlenia(WSZYSTKIE_W_PRZESTRZENI | LINIE | NA_SFERZE | W_PRZESTRZENI);
 }
 
@@ -229,13 +215,11 @@ bool RysujGwiazdy::PokazUkryjGwiazdozbior(int nrGwiazdozbioru,int ilePozycji) {
     for(int i=0;i<ilePozycji;i++){
         ktoryNaLiscie=punkty->UsunZlistyPokazywanychGwiazdozbiorow(nrGwiazdozbioru+i);
         if(ktoryNaLiscie==-1){
-           //printf("\npokazanie ");
            PokazKolejnyGwiazdozbior(nrGwiazdozbioru+i);
            wynik=true;
         }
         else{
             //jeśli jest, to usuwamy
-            //printf("\nukrycie (usuniecie) ");
             punkty->voGwiazdozbior.at(ktoryNaLiscie)->PrzekazGwiazdyDoBazy(oBaza);
             delete punkty->voGwiazdozbior.at(ktoryNaLiscie);
             punkty->voGwiazdozbior.at(ktoryNaLiscie) = 0;
@@ -243,7 +227,6 @@ bool RysujGwiazdy::PokazUkryjGwiazdozbior(int nrGwiazdozbioru,int ilePozycji) {
         }
         
     }
-    //printf("\nPokazUkryjGwiazdozbior ktoryNaliscie %d",ktoryNaLiscie);
     punkty->PrzygotujPunktyDoWyswietlenia(WSZYSTKIE_W_PRZESTRZENI | LINIE | NA_SFERZE | W_PRZESTRZENI);
     return wynik;
 }
@@ -310,13 +293,11 @@ void RysujGwiazdy::ZaznaczGwiazde(float kamX, float kamY, float kamZ, int idPunk
     int nrHip;
     float dystans = 0.0;
     char p = (HIP | MAG | W_ABS | ODL | B_V); //|WLK_DO_WYSWIETLENIA|ABS_WIELKOSC_DO_WYSWIETLENIA
-    //std::string sParametry;
     int linia=0;
     try {
         iteratorLG itWybrany=CoWybrano();
         linia++;
         nrHip = itWybrany->Parametry(punkty->dsParametryDoWyswietlenia, p);
-//        nrHip = itWybrany->Parametry(sParametry, p);
         linia++;
         //ustawienie centrowania
         punkty->cZ=-itWybrany->OX()/100;
@@ -324,7 +305,6 @@ void RysujGwiazdy::ZaznaczGwiazde(float kamX, float kamY, float kamZ, int idPunk
         punkty->cX=-itWybrany->OZ()/100;
         linia++;
         //poniżej zamiana X i Z nie wiadomo dlaczego
-//        dystans = oBaza->ObliczDystans(-kamZ*100, -kamY*100, -kamX*100, nrHip);
         dystans = itWybrany->DystansDo(-kamZ*100, -kamY*100, -kamX*100);
         linia++;
         //powinno przypisać nr gwiazdozbioru, a jeśli nic nie pasuje to wstawia -1, czyli tak, jak na początku
@@ -334,15 +314,12 @@ void RysujGwiazdy::ZaznaczGwiazde(float kamX, float kamY, float kamZ, int idPunk
     } catch (xNullPointerException & e) {
         punkty->dsParametryDoWyswietlenia.clear();
         printf("\nnie odnaleziono numeru hip, blad po linii %d %s",linia,e.what());
-        //RysujScene(); - było w COknoGL ale tu nie da rady
         return;
     }
-    //printf("\ndystans %2.3f ly",dystans);
     punkty->dsParametryDoWyswietlenia.push_back(oBaza->DoJakiegoGwiazdozbioruNalezy(nrHip));
     std::ostringstream os; 
     os<<"dystans "<<dystans<<" ly"; 
     punkty->dsParametryDoWyswietlenia.push_back(os.str());
-//    punkty->dsParametryDoWyswietlenia.push_back();
     try{
        
         ParametryWatkuObliczenGwiazd * pw=new ParametryWatkuObliczenGwiazd;//pamięć jest zwalniana w wywołanym wątku
@@ -359,34 +336,20 @@ void RysujGwiazdy::ZaznaczGwiazde(float kamX, float kamY, float kamZ, int idPunk
 
 
 void RysujGwiazdy::WydzielWybraneGwiazdozbiory(int nrGwiazdozbioru, int ilePozycji) {
-    //sprawdzić ile jest dostępnych gwiazdozbiorów
-    //    std::string komunikat("przekroczenie zakresu");
-    //    if (nrGwiazdozbioru >= oBaza->ileOdczytanychNazwGwiazdozbiorow() || nrGwiazdozbioru < 0 ||
-    //            nrGwiazdozbioru + ilePozycji >= oBaza->ileOdczytanychNazwGwiazdozbiorow())throw std::out_of_range(komunikat);
-//    printf("\npoczatek metody WydzielWybraneGwiazdozbiory voGwiazdozbior zawiera %d elementow", punkty->voGwiazdozbior.size());
-    //jeśli voGwiazdozbior coś zawiera, to przed skasowaniem obiekty powinny oddać gwiazdy do oBaza
-
     for (int i = 0; i < punkty->voGwiazdozbior.size(); i++) {
         punkty->voGwiazdozbior.at(i)->PrzekazGwiazdyDoBazy(oBaza);
-        //printf("\nRysujGwiazdy::WydzielWybraneGwiazdozbiory przed delete");
         if (punkty->voGwiazdozbior.at(i) != 0) delete punkty->voGwiazdozbior.at(i);
         punkty->voGwiazdozbior.at(i) = 0;
-        //printf("\nzwolniono pamiec po obiekcie ObliczGwiazdy");
     }
-
     //trzeba skasować poprzednią zawartość vectora
     punkty->voGwiazdozbior.clear();
     //a także listę numerów wyświetlanych gwiazdozbiorów
     punkty->numeryUzywanychGwiazdozbiorow.clear();
 
     ObliczeniaGwiazd * tOg[ilePozycji]; //wykorzystany do zainicjowania
-    //printf("\nWydzielWybraneGwiazdozbiory przed petla tOg[i] = new ObliczeniaGwiazd");
     for (int i = 0; i < ilePozycji; i++) {
-        //printf("\ndodawanie nowego obiektu do voGwiazdozbior");
-
         tOg[i] = new ObliczeniaGwiazd(oBaza, nrGwiazdozbioru + i, NA_SFERZE);
         punkty->numeryUzywanychGwiazdozbiorow.push_back(nrGwiazdozbioru + i);
-        //printf("\n %d %d",i,tOg[i]->LGwiazdy().size());
     }
     punkty->voGwiazdozbior.assign(tOg, tOg + ilePozycji);
 }
@@ -397,10 +360,8 @@ void RysujGwiazdy::PokazKolejnyGwiazdozbior(int nrGwiazdozbioru) {
     punkty->numeryUzywanychGwiazdozbiorow.push_back(nrGwiazdozbioru);
 }
 void RysujGwiazdy::OdszukajNr(float kamX, float kamY, float kamZ,int nrDoznalezienia){
-    //printf("\nOdszukajNr %d",nrDoznalezienia);
     if(oBaza->IteratorWgHip(nrDoznalezienia)!=oBaza->LGwiazdy().end())
         this->ZaznaczGwiazde(kamX,kamY,kamZ,nrDoznalezienia);
-    //punkty->idWybranegoPunktu=nrDoznalezienia;
 }
 void RysujGwiazdy::PokazNajblizsze(){
     //zamiast wybranych gwiazdozbiorów ma pokazać tylko gwiazdy sąsiadujące z wybraną
@@ -411,7 +372,6 @@ void RysujGwiazdy::PokazNajblizsze(){
     printf("\nPokazNajblizsze");
     this->WydzielWybraneGwiazdozbiory(196,1);
     punkty->PrzygotujPunktyDoWyswietlenia(WSZYSTKIE_W_PRZESTRZENI | LINIE | NA_SFERZE | W_PRZESTRZENI);
-    //punkty->coPokazac
 }
 
 bool RysujGwiazdy::PobierzNrIloscZklawiatury(int * wprowadzoneLiczby,char * komunikat) {
@@ -420,31 +380,16 @@ bool RysujGwiazdy::PobierzNrIloscZklawiatury(int * wprowadzoneLiczby,char * komu
     if (ileLiczb < 2)return false;
     printf("\nprosze wprowadzic %s",komunikat);
     for (int i = 1; i <= ileLiczb; i++) {
-
-        // do {
         printf("\n%d wartosc: ", i);
         std::cin >> wprowadzoneLiczby[i];
-        // } while (!std::cin.good());//podobno sprawdza, czy wprowadzono int, ten mechanizm nie działa
     }
     return (wprowadzoneLiczby[1] < oBaza->ileOdczytanychNazwGwiazdozbiorow() + 2 || wprowadzoneLiczby[1] >= 0 ||
             wprowadzoneLiczby[1] + wprowadzoneLiczby[3] < oBaza->ileOdczytanychNazwGwiazdozbiorow() + 2); //dodajemy 2, żeby w zakresie było mozliwe
-    //sprawdzenie(wyswietlenie) całych odczytanych plików z gwiazdazmi
-    //    re
-    //    int nrGwiazdozbioru = 0;
-    //    int ilePozycji = 1;
-    //    printf("\nproszę wprowadzić nr gwiazdozbioru: ");
-    //    std::cin>>nrGwiazdozbioru;
-    //    printf("\n ilość pozycji");
-    //    std::cin>>ilePozycji;
 }
 
 iteratorLG RysujGwiazdy::CoWybrano() {
     //trzeba siegnąć do obiektu oBaza, gdyż ma on listę, lub wektor iteratorów wszystkich gwiazd, z niej trzeba skorzystać
-    //try{
     return oBaza->IteratorWgHip(punkty->idWybranegoPunktu);
-    //}catch(xNullPointerException e){
-
-    //}
 }
 
 

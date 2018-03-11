@@ -18,7 +18,6 @@
 #include "OdczytNazw.h"
 
 OdczytNazw::OdczytNazw(const char * aP) : OdczytPliku(aP, TEKSTOWO) {
-    //printf("\nodczyt nazw konstruktor");
 }
 
 OdczytNazw::OdczytNazw(const char* aP, char sposobOdczytu) {
@@ -35,20 +34,14 @@ OdczytNazw::~OdczytNazw() {
 
 std::string OdczytNazw::PodzialNazw(std::string& linia, int & iHip, std::string& sSymb) {
     int p0, p1, p2; //punkty podziału
-    //std::string sKon; 
     p0 = 0;
     p1 = linia.find('|');
     p2 = linia.find('_');
 
     iHip = atoi(linia.substr(0, p1).c_str());
-    //printf("\nsymbol przed %s, ",sSymb.c_str());
-    
-    sSymb = linia.substr(p1 + 1, p2 - p1 - 1);
+   sSymb = linia.substr(p1 + 1, p2 - p1 - 1);
    
-//    std::cout<<linia<<"*";
     return linia.substr(p2 + 1);
-    //printf(" po przypisaniu %s ",sSymb.c_str());
-
 }
 
 void OdczytNazw::PodzialNazwGwiazd(std::string& linia, iteratorLG * indeksIteratorow,std::map<std::string,std::string>& nazwyTlumaczenie) {
@@ -101,7 +94,6 @@ int OdczytNazw::IleOdczytanychLinii() {
     } catch (std::exception& e) {
         //coś zrobić, gdyby nie odczytało pliku
     }
-    //printf("\nOdczytNazw::IleOdczytanychLinii() wyjscie z metody");
     return r;
 }
 
@@ -116,7 +108,6 @@ int OdczytNazw::UzupelnijIndeksyHipSymboliNazw(std::vector<int>& iHip, std::vect
             dIleGwiazd.push_back(licznik);
             dPozycjaKolejnegoZbioru.push_back(i);
             nazwyOddzielone.push_back(biezacaKonst);
-            //printf("\ndodano %s , %d szt.", biezacaKonst.c_str(),licznik);
             licznik = 0; //bo liczymy następną konst od początku
 
         }
@@ -124,8 +115,6 @@ int OdczytNazw::UzupelnijIndeksyHipSymboliNazw(std::vector<int>& iHip, std::vect
         licznik++;
         poprzedniaKonst = biezacaKonst;
     }
-    //    printf("\nUzupelnijIndeksyHipSymboliNazw co zawieraja dwa pierwsze elementy dIleGwiazd: %d, %d",dIleGwiazd.at(0),dIleGwiazd.at(1));
-    //    printf("\noraz dPozycjaKolejnegoZbioru: %d, %d",dPozycjaKolejnegoZbioru.at(0),dPozycjaKolejnegoZbioru.at(1));
     //może na koniec uciąć pierwszy element bo jest zerowy i ostatni z dPozycja
     if (dIleGwiazd.size() > 0) {
 
@@ -135,12 +124,7 @@ int OdczytNazw::UzupelnijIndeksyHipSymboliNazw(std::vector<int>& iHip, std::vect
     return dIleGwiazd.size();
 }
 int OdczytNazw::UzupelnijNazwyGwiazdozbiorow(std::vector<std::string>& nazwy){
-    //     int i=0;
-    //    for(i;i<nazwyOddzielone.size();i++){
-    //       nazwy[i]=nazwyOddzielone[i];
-    //    }
-    nazwy.assign(nazwyOddzielone.begin(), --nazwyOddzielone.end()); //czy drugi argument jest poprawny?
-    //    printf("\nUzupelnijNazwyGwiazdozbiorow ostatni uzupelniony element %s",(*--nazwy.end()).c_str());
+	nazwy.assign(nazwyOddzielone.begin(), --nazwyOddzielone.end()); //czy drugi argument jest poprawny?
     return nazwy.size();
 }
 
@@ -150,8 +134,6 @@ void OdczytNazw::UzupelnijPelneNazwyGwiazdozbiorow(std::deque<Gwiazdozbior>& gwi
     try {
         for (std::deque<std::string>::iterator it = linieOdczytane.begin(); it != linieOdczytane.end(); it++) {
             nrLinii++;
-            //PodzialNazwGwiazd(*it, indeksIteratorow,nazwyTlumaczenie);
-            
             gwiazdozbiory.push_back(PodzialNazwGwiazdozbiorow(*it,nazwyTlumaczenie));
         }
     }catch (std::exception & e) {
@@ -187,11 +169,9 @@ void OdczytNazw::WypiszOddzieloneNazwy() {
 }
 
 std::string OdczytNazw::NazwaWgNumeru(int i) {
-
     try {
         return nazwyOddzielone.at(i);
     } catch (std::out_of_range & oor) {
         return oor.what();
     }
-
 }

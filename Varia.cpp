@@ -142,10 +142,7 @@ void PiszZnaki(unsigned int czcionka){
      unsigned int litery[kon-pocz];
      while(i<kon)litery[i-pocz]=i++;
      glCallLists(kon-pocz,GL_UNSIGNED_INT,litery); //Wy�wietla kolejno listy liter(napis)
-//     char litery[]={"dfgę"};
-//     glCallLists(4,GL_UNSIGNED_BYTE,litery); //Wy�wietla kolejno listy liter(napis)
-//     glCallLists(98);
-     glPopAttrib();
+	glPopAttrib();
 }
 void Wyswietlaj(unsigned int czcionka,int kodPierwszegoZnaku, const char * napis, ...)
 {
@@ -164,7 +161,7 @@ void Wyswietlaj(unsigned int czcionka,int kodPierwszegoZnaku, const char * napis
 unsigned long* WczytajTeksture(HWND uchwytOkna, char* nazwaPliku, int& teksturaSzer,
                                int& teksturaWys, unsigned char alfa)
 {
-//nie trzeba zwaraca� informacji o obrazie, bo zawsze zwracamy tablice RGBA
+		//nie trzeba zwaraca� informacji o obrazie, bo zawsze zwracamy tablice RGBA
       try
       {
            //czytanie bitmapy z pliku

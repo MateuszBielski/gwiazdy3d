@@ -29,13 +29,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 //   ShowWindow( uKonsoli, SW_HIDE );
     RysujGwiazdy * rysujGwiazdy;
     rysujGwiazdy = new RysujGwiazdy();//wskaźnik ten jest odczytywany przez COknoGL w COknoGL::WndProc case : WM_CREATE za pomocą metody statycznej
-    
-//    for(int z=-128; z<255; z++)
-//    {
-//            std::cout << z << " " << char(z) << "." << std::endl;
-//    }
-//    system("pause");
-    
+ 
     rysujGwiazdy->Inicjuj();
     
     POINT rozmiarOkna = {640, 480};

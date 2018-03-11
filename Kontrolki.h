@@ -19,8 +19,6 @@
 #include <windows.h>
 #include <commctrl.h>
 #include <sstream>
-//#include <stdio.h>
-//#include <stdlib.h>
 #include <cstdio>
 #include <deque>
 #include <string>

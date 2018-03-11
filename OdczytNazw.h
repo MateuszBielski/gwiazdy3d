@@ -37,7 +37,7 @@ public:
     std::string NazwaWgNumeru(int i);
     
 private:
-    std::deque<std::string> nazwyOddzielone;//
+    std::deque<std::string> nazwyOddzielone;
     std::string PodzialNazw(std::string& ,int & ,std::string& );//podział na numer, symbol i gwiazdozbiór;
     void PodzialNazwGwiazd(std::string&  ,iteratorLG *,std::map<std::string,std::string>& );//z danej linii odczytuje numer gwiazdy, skacze do odpowiedniej gwiazdy, poprzez iterator i ustawia jej nazwe
     Gwiazdozbior PodzialNazwGwiazdozbiorow(std::string&  ,std::map<std::string,std::string>& );

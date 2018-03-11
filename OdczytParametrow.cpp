@@ -37,14 +37,12 @@ int OdczytParametrow::OdczytajParametr(std::string& nazwa,float *& tParametry){
     int ileParametrow=kon-pocz;
     if(ileParametrow<=0)return 0;
     tParametry=new float[ileParametrow];
-    //printf("\nodczytano %d parametrow",ileParametrow);
     for(int i=0;i<ileParametrow;i++){
         tParametry[i]=atof(linieOdczytane.at(i+pocz).c_str());
         
     }
     
     return ileParametrow;
-    //printf("\n indeksy szukanych parametrow  float pocz: %d, kon %d",pocz,kon);
 }
 int OdczytParametrow::OdczytajParametr(std::string& nazwa,int& par){
      int i,pocz,kon;
@@ -55,13 +53,8 @@ int OdczytParametrow::OdczytajParametr(std::string& nazwa,int& par){
         if(linieOdczytane.at(i)==nazwaEnd)kon=i;//następny za ostatnim elementem listy
         i++;
     }
-    //printf("pocz %d kon %d",pocz,kon);
     if((kon-pocz)!=1)return 0;
-    //printf("odczytano %s",linieOdczytane.at(pocz).c_str());
-    par=atoi(linieOdczytane.at(pocz).c_str());
-    
-//    par=(int)atof(linieOdczytane.at(pocz).c_str());
-    //printf("\n indeksy szukanych parametrow int pocz: %d, kon %d",pocz,kon);
+	par=atoi(linieOdczytane.at(pocz).c_str());
 }
 int OdczytParametrow::OdczytajParametr(std::string& nazwa,float& par){
      int i,pocz,kon;
@@ -74,7 +67,6 @@ int OdczytParametrow::OdczytajParametr(std::string& nazwa,float& par){
     }
     if((kon-pocz)!=1)return 0;
     par=atof(linieOdczytane.at(pocz).c_str());
-    //printf("\n indeksy szukanych parametrow int pocz: %d, kon %d",pocz,kon);
 }
 void OdczytParametrow::WypiszParametry(){
     for(int i=0;i<linieOdczytane.size();i++){

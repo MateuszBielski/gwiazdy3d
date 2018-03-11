@@ -37,8 +37,7 @@ bool Kontrolki::Utworz( WNDPROC procedura) {
     wcDoKontrolek.hIconSm = NULL; //uchwyt ikony
     wcDoKontrolek.hCursor = LoadCursor(NULL, IDC_ARROW); //uchwyt kursora
     wcDoKontrolek.hbrBackground = 0; //uchwyt p�dzla t�a
-//  wcDoKontrolek.hbrBackground = (HBRUSH) COLOR_BACKGROUND; //uchwyt p�dzla t�a
-    wcDoKontrolek.lpszMenuName = NULL; //nazwa menu
+	wcDoKontrolek.lpszMenuName = NULL; //nazwa menu
     wcDoKontrolek.lpszClassName = nazwaKlasyOknaDoKontrolek; //nazwa klasy okna
 
     //rejestracja
@@ -46,8 +45,7 @@ bool Kontrolki::Utworz( WNDPROC procedura) {
     czcionkaZwykla=CreateFont(12,5,0,0,0,0,0,0,0,0,0,0,0,"Tahoma");
     czcionkaZwezona=CreateFont(12,3,0,0,0,0,0,0,0,0,0,0,0,"Tahoma");
     czcionkaGruba=CreateFont(12,5,0,0,700,0,0,0,0,0,0,0,0,"Tahoma");
-//    printf("\nKontrolki::Utworz zainicjowane czZw %d",(int)czcionkaZwykla);
-    uOknaKontrolekG = CreateWindowEx(
+	uOknaKontrolekG = CreateWindowEx(
             0,
             nazwaKlasyOknaDoKontrolek, //nazwa klasy okna
             "okno Kontrolek", //nazwa okna
@@ -72,14 +70,9 @@ bool Kontrolki::Utworz( WNDPROC procedura) {
             NULL//parametr komunikatu informuj�cego o utworzeniu okna
             );
     if (uOknaKontrolekG == NULL ||uOknaKontrolekD == NULL) return false;
-
-
-    //    UpdateWindow(uOkna1);
-
-    //kontrolka
+	
+	//kontrolka
     InitCommonControls();
-
-    //uchwyty.push_back(uOknaKontrolek);
 
     ShowWindow(uOknaKontrolekG, SW_SHOW);
     ShowWindow(uOknaKontrolekD, SW_SHOW);
@@ -97,7 +90,6 @@ int Kontrolki::PrzyciskiZlisty(std::list<std::string>& lista) {
     int szerKontrolki = 80;
     int wysKontrolki = 20;
     int ktory = 0;
-    //printf("\nKontrolki::PrzyciskiZlisty przed petla");
     while (it != lista.end()) {
 
         HWND hButton = CreateWindowEx(0
@@ -114,13 +106,7 @@ int Kontrolki::PrzyciskiZlisty(std::list<std::string>& lista) {
         uchwytyKontrolek.push_back(hButton);
         ShowWindow(hButton, SW_SHOW);
         ktory++;
-        //printf("\ndodano przycisk nr %d",ktory);
     }
-    //printf("\nKontrolki::PrzyciskiZlisty po petli");
-
-    
-    
-    //UpdateWindow(hButton);
     return ktory;
 }
 int Kontrolki::PrzyciskiZlisty(std::deque<Gwiazdozbior>& listaGwiazdozbiorow){//std::deque<Gwiazdozbior>& listaGwiazdozbiorow
@@ -137,41 +123,20 @@ int Kontrolki::PrzyciskiZlisty(std::deque<Gwiazdozbior>& listaGwiazdozbiorow){//
     int pozX=margines;
     int pozY=margines;
     std::deque<Gwiazdozbior>::iterator itGwZb=listaGwiazdozbiorow.begin();
-//    wchar_t WideChar[ 100 ];
-//    char tekst[40]={"abc  ź ł ó ń"};
-//    unsigned char uTekst[40];
-//    for (int i=0;i<40;i++){
-//        uTekst[i]=tekst[i];
-//        printf("\n%d %c %d",i,tekst[i],tekst[i]);
-//    }
-//    if( !MultiByteToWideChar( CP_UTF8, 0,tekst , - 1, WideChar, 100 ) )
-//    {
-//        MessageBoxW( uOknaKontrolekG, L"Nie można przekonwertować napisu!", L"Straszny błąd", 0 );
-//    }
-//    else
-//    {
-//        MessageBoxW( uOknaKontrolekG, WideChar, L"Konwersja OK", 0 );
-//    }
-    
-    
+
     while(itGwZb!=listaGwiazdozbiorow.end()){
         //ustalenie pozycji
         int ktoryRzad=(int)(ileRzedow*(float)ktoryPrzycisk/ilePrzyciskow);
         int ktoraKolumna=ktoryPrzycisk%ilePrzyciskowWrzedzie;
-//        
         pozY=margines+(wysokoscPrzycisku+margines)*ktoryRzad;
         pozX=margines+(szerokoscPrzycisku+margines)*ktoraKolumna;
-                //printf("\nktoraKolumna: %d, Y: %d",ktoraKolumna,pozY);
-        
         char nazwa[itGwZb->Nazwa().length()]; 
         strcpy(nazwa,itGwZb->Nazwa().c_str());
         //próba konwersji na polskie znaki
         wchar_t wideChar[ 100 ];
         
         MultiByteToWideChar( CP_UTF8, 0, nazwa,-1, wideChar, 100 );
-//        MessageBoxW( uOknaKontrolekG, wideChar, L"Konwersja OK", 0 );
-        //CP_UTF8
-         HWND hButton = CreateWindowExW(WS_EX_APPWINDOW
+        HWND hButton = CreateWindowExW(WS_EX_APPWINDOW
                     , L"BUTTON" ,wideChar//L"BUTTON"   (LPCWSTR)WC_BUTTON
                     , WS_CHILD, pozX
                     , pozY
@@ -183,7 +148,6 @@ int Kontrolki::PrzyciskiZlisty(std::deque<Gwiazdozbior>& listaGwiazdozbiorow){//
          uchwytyKontrolek.push_back(hButton);
          HFONT hFont=czcionkaZwykla;
          if(itGwZb->Nazwa().length()>14)hFont=czcionkaZwezona;
-         //printf(" %d ,",(int)czcionkaZwykla);
          SendMessage(hButton,WM_SETFONT,(WPARAM)hFont,1);
          itGwZb++;
          ktoryPrzycisk++;
@@ -201,7 +165,6 @@ int Kontrolki::PrzyciskiWgNumerowPolecen(std::list<int>& lista) {
     int szerKontrolki = 40;
     int wysKontrolki = 20;
     int ktory = 0;
-    //printf("\nKontrolki::PrzyciskiZlisty przed petla");
     while (it != lista.end()) {
         std::ostringstream os; 
         os<<(*it); 
@@ -219,19 +182,12 @@ int Kontrolki::PrzyciskiWgNumerowPolecen(std::list<int>& lista) {
         uchwytyKontrolek.push_back(hButton);
         ShowWindow(hButton, SW_SHOW);
         ktory++;
-        //printf("\ndodano przycisk nr %d",ktory);
     }
-    //printf("\nKontrolki::PrzyciskiZlisty po petli");
-
-    
-    
-    //UpdateWindow(hButton);
-    return ktory;
+     return ktory;
 }
 
 bool Kontrolki::ZmienStanPrzycisku(int nrPrzycisku,bool zaznaczyc) {
     HFONT hFont=zaznaczyc?czcionkaGruba:czcionkaZwykla;
-    //if(zaznaczyc)printf("\nzaznaczyc");
     if(SendMessage(uchwytyKontrolek.at(nrPrzycisku),WM_SETFONT,(WPARAM)hFont,1))return true;
     else return false;
 }
@@ -243,7 +199,6 @@ void Kontrolki::OdswiezOkno(int ktore) {
         case WSZYSTKIE_KONTROLKI:
         InvalidateRect(uOknaKontrolekG, NULL, true);
         InvalidateRect(uOknaKontrolekD, NULL, true);
-        //InvalidateRect(uOknaWyszukiwania, NULL, true);
         break;
             
     }
@@ -302,7 +257,7 @@ return atoi(numer);
 }
 
 void Kontrolki::WypiszTekst(std::string& tekst) {
-    SetWindowText(uOknaWyszukiwania,tekst.c_str());//,tekst.length()
+    SetWindowText(uOknaWyszukiwania,tekst.c_str());
 }
 
 

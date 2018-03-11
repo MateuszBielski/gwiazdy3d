@@ -2,68 +2,51 @@
 #ifndef OPENGL_H
 #define OPENGL_H
 
-//#define _USE_MATH_DEFINES
-//
 #include <windows.h>
-
-//#include <commctrl.h>
-//
 
 #include <math.h>
 #include <cstdio>
 #include <deque>
 #include <exception>
-
 #include "Varia.h"
-
-//#include "C:\Users\BCO\Documents\NetBeansProjects\CppApplication_2\ZbiorGwiazd.h"
 #include "OdczytajGwiazdy.h"
 #include "OdczytWierzcholkow.h"
 #include "ObliczeniaGwiazd.h"
 #include "OdczytNazw.h"
+#include "RysujGwiazdy.h"
+#include "Kontrolki.h"
+
 #define ARCBALL
 #ifdef ARCBALL
 #include "ArcBall.h"
 #endif
+
 #define BEZ_SWAPBUFFERS 1
 #define BEZ_CLEARBUFFERS 2
 #define BEZ_ODSWIEZANIA_KONTROLEK 4
 #define WYSWIETL_GWIAZDOZBIORY 1
 #define OD_NOWA_PRZELICZ 2
-#include "RysujGwiazdy.h"
-#include "Kontrolki.h"
-//#include "UkladyPunktowMaterialnych.h"
-//#define UTWORZ_OKNO_A 11
-//#define UTWORZ_OKNO_B 12
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK ProceduraOknaGL(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK ProceduraOknaDoKontrolek(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 class COkno {
 public:
-    //COkno():{};
     LRESULT WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
     bool Init(HINSTANCE, POINT, POINT);
     WPARAM Run();
-    HWND uOkna1,uOknaPodst;//,uOknaKontrolek,hButton ; //,uOkna2,uOkna3,uOkna4,uOkna5,uOkna6,uOkna7,uORysowania;
-    //std::deque<HWND> uchwytyKontrolek;
+    HWND uOkna1,uOknaPodst;
     long szerokoscObszaruUzytkownika;
     long wysokoscObszaruUzytkownika;
 protected:
     HINSTANCE uAplikacji;
     Kontrolki * kontrolki;
-    
-    //      
 };
-//
-
 
 class COknoGL : public COkno {
-    //      
  public:
     COknoGL() : COkno(), uchwytRC(NULL), uchwytDC(NULL),
     poczatkowaPozycjaKursoraMyszy(POINT()), kameraR(10),kameraX(0),kameraY(0),kameraZ(0),wRG(0),nearDoKorektySceny(0.2)
-    //,wspKam(1),coPokazac(LINIE|NA_SFERZE|W_PRZESTRZENI),oBaza(0),idWybranegoPunktu(0),idWybranegoGwiazdozbioru(-1)
 #ifdef ARCBALL
     , ArcBall(NULL)
 #endif

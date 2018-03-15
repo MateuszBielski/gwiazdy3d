@@ -12,6 +12,9 @@
 
 #define BINARNIE 0
 #define TEKSTOWO 1
+
+typedef std::deque<std::string>::iterator iterDS;
+
 class OdczytPliku {
 public:
     OdczytPliku();
@@ -24,7 +27,9 @@ public:
 private:
 protected:  
     std::ifstream ifs;
-    int OdczytajKolejneLinie(std::ifstream &);
+	std::string nazwaPliku;
+    int OdczytajKolejneLinieIzamknijStrumien(std::ifstream &);
+	void WypiszLinieOdczytane();
     std::deque<std::string> linieOdczytane;//bez analizy i podziałów
 };
 #endif /* ODCZYTPLIKU_H */

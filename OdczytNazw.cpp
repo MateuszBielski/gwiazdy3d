@@ -43,19 +43,21 @@ void OdczytNazw::PodzialNazwGwiazd(std::string& linia, iteratorLG * indeksIterat
     p1 = linia.find('|');
     p2 = linia.find('(') + 2;
     p3 = linia.find(')')-1;
+	if((p1 < 0) or (p2 < 0) or (p3 < 0))return;
+	
     int nrGwiazdy = 0;
     std::string nazwaOryg;
     std::string nazwaTlum;
-
-    nrGwiazdy = atoi(linia.substr(0, p1).c_str());
-    //ustawienie nazwy we właściwym obiekcie
-    nazwaOryg = linia.substr(p2, p3-p2);
     try{
-        
-    nazwaTlum = nazwyTlumaczenie[nazwaOryg];
+		nrGwiazdy = atoi(linia.substr(0, p1).c_str());
+		//ustawienie nazwy we właściwym obiekcie
+		nazwaOryg = linia.substr(p2, p3-p2);
+		nazwaTlum = nazwyTlumaczenie[nazwaOryg];
     }catch(std::exception e){
      //gdyby mapa nie miała tłumaczeń   
         indeksIteratorow[nrGwiazdy]->UstawNazwe(nazwaOryg);
+		printf("\nBlad OdczytNazw::PodzialNazwGwiazd linia: %X, p1: %d, p2: %d, p3: %d, blad %s",linia.c_str(),p1,p2,p3,e.what());
+		//WypiszLinieOdczytane();
         return;
     }
         indeksIteratorow[nrGwiazdy]->UstawNazwe(nazwaTlum);
@@ -68,13 +70,18 @@ Gwiazdozbior OdczytNazw::PodzialNazwGwiazdozbiorow(std::string& linia,std::map<s
     p1 = linia.find((char)9);//znak o numerze 9
     p2 = linia.find('(') + 2;
     p3 = linia.find(')')-1;
-    nazwaSkrocona = linia.substr(0,p1);
-    nazwaOryg=linia.substr(p2,p3-p2);
+	if((p1 < 0) or (p2 < 0) or (p3 < 0)){
+		return Gwiazdozbior("brak Skrotu","brak Tlumaczenia");
+	}
     try{
+		nazwaSkrocona = linia.substr(0,p1);
+		nazwaOryg=linia.substr(p2,p3-p2);
         nazwaTlumaczona=tlumaczenie[nazwaOryg];
     }catch(std::exception &e){
-        std::string blad(e.what());
-        nazwaTlumaczona="brak nazwy"+blad;
+        //std::string blad(e.what());
+		printf("\nBlad OdczytNazw::PodzialNazwGwiazdozbiorow linia: %X, p1: %d, p2: %d, p3: %d, blad %s",linia.c_str(),p1,p2,p3,e.what());
+		//WypiszLinieOdczytane();
+        nazwaTlumaczona="brak nazwy";
     }
     
     return Gwiazdozbior(nazwaSkrocona,nazwaTlumaczona);
@@ -84,7 +91,7 @@ int OdczytNazw::IleOdczytanychLinii() {
     int r = 0;
     try {
 
-        r = OdczytajKolejneLinie(ifs);
+        r = OdczytajKolejneLinieIzamknijStrumien(ifs);
     } catch (std::exception& e) {
         //coś zrobić, gdyby nie odczytało pliku
     }
@@ -123,7 +130,7 @@ int OdczytNazw::UzupelnijNazwyGwiazdozbiorow(std::vector<std::string>& nazwy){
 }
 
 void OdczytNazw::UzupelnijPelneNazwyGwiazdozbiorow(std::deque<Gwiazdozbior>& gwiazdozbiory,std::map<std::string,std::string>& nazwyTlumaczenie) {
-    OdczytajKolejneLinie(ifs);
+    OdczytajKolejneLinieIzamknijStrumien(ifs);
     int nrLinii = 0;
     try {
         for (std::deque<std::string>::iterator it = linieOdczytane.begin(); it != linieOdczytane.end(); it++) {
@@ -140,7 +147,7 @@ void OdczytNazw::UzupelnijPelneNazwyGwiazdozbiorow(std::deque<Gwiazdozbior>& gwi
 int OdczytNazw::UzupelnijNazwyGwiazd(iteratorLG * indeksIteratorow,std::map<std::string,std::string>& nazwyTlumaczenie) {
     clock_t start,koniec;
     start = clock();
-    OdczytajKolejneLinie(ifs);
+    OdczytajKolejneLinieIzamknijStrumien(ifs);
     int nrLinii = 0;
     try {
         for (std::deque<std::string>::iterator it = linieOdczytane.begin(); it != linieOdczytane.end(); it++) {

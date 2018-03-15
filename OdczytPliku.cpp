@@ -16,6 +16,7 @@ OdczytPliku::OdczytPliku() {
 
 OdczytPliku::OdczytPliku(const char * aP) : ifs(aP, std::ios::binary) {
     printf("\notwieranie pliku:  %s", aP);
+	nazwaPliku.assign(aP);
     if (!ifs.is_open()) {
         this->~OdczytPliku();
         throw xBrakPliku(aP);
@@ -29,6 +30,7 @@ OdczytPliku::OdczytPliku(const char * aP, char bParametry) {
     if (bParametry & TEKSTOWO){
         ifs.open(aP);
         printf("\notwarto plik %s do odczytu tekstowego",aP);
+		nazwaPliku.assign(aP);
     }
         
     //bezpieczenstwo
@@ -54,11 +56,13 @@ OdczytPliku::~OdczytPliku() {
         ifs.close();
     }
 }
-int OdczytPliku::OdczytajKolejneLinie(std::ifstream & plik) {
+int OdczytPliku::OdczytajKolejneLinieIzamknijStrumien(std::ifstream & plik) {
     int nrLinii = 0;
+	plik.seekg(0);
+	std::string sWiersz;
      while (!plik.eof()) {
-        std::string sWiersz;
         std::getline(plik, sWiersz);
+		if(!sWiersz.size())continue;
         if (plik.bad()) //podczas próby odczytania danych wystąpił błąd sprzętowy
         {
             plik.close();
@@ -68,6 +72,19 @@ int OdczytPliku::OdczytajKolejneLinie(std::ifstream & plik) {
         linieOdczytane.push_back(sWiersz);
         nrLinii++;
      }
+	 plik.close();
     printf("\nodczytano %d linii", linieOdczytane.size());
     return nrLinii;
+}
+void OdczytPliku::WypiszLinieOdczytane()
+{	
+	iterDS linia, koniecLinii;
+	linia = linieOdczytane.begin();
+	koniecLinii = linieOdczytane.end();
+	int ktora = 0;
+	printf("\n%s, odczytano:",nazwaPliku);
+	while(linia != koniecLinii){
+		printf("\n%d. %s",ktora++,(*linia++).c_str());
+	}
+	
 }

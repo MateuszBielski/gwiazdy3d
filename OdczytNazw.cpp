@@ -53,6 +53,7 @@ void OdczytNazw::PodzialNazwGwiazd(std::string& linia, iteratorLG * indeksIterat
 		//ustawienie nazwy we właściwym obiekcie
 		nazwaOryg = linia.substr(p2, p3-p2);
 		nazwaTlum = nazwyTlumaczenie[nazwaOryg];
+		if(nazwaTlum.size() < 1)nazwaTlum = nazwaOryg;
     }catch(std::exception e){
      //gdyby mapa nie miała tłumaczeń   
         indeksIteratorow[nrGwiazdy]->UstawNazwe(nazwaOryg);

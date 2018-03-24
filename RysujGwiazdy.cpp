@@ -107,7 +107,7 @@ void RysujGwiazdy::Inicjuj() {
         komunikat="pobierz nazwy gwiazd";
         oBaza->PobierzNazwyGwiazd(nazwyGwiazd);
         komunikat="dodaj kolejne poziomy jako gwiazdozbiory";
-        oBaza->DodajKolejnePoziomyJakoGwiazdozbiory();
+        //oBaza->DodajKolejnePoziomyJakoGwiazdozbiory();
     } catch (std::exception& e) {
         printf("\nRysuj Gwiazdy Inicjuj problem z %s %s",komunikat.c_str(), e.what());
     }

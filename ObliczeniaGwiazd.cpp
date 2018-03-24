@@ -330,12 +330,13 @@ int ObliczeniaGwiazd::DodajKolejnePoziomyJakoGwiazdozbiory() {
     int miejsceDoWstawienia = 0;
     std::list<Gwiazda2>::iterator it, kon;
     printf("\nDodajKolejnePoziomyJakoGwiazdozbiory iteratoryKolejnychPoziomow.size() %d",iteratoryKolejnychPoziomow.size());
-    
+    int ilePoziomow = iteratoryKolejnychPoziomow.size();
     for (i; i < iteratoryKolejnychPoziomow.size(); i++) {
         int j = 0;
         int bledy = 0;
         printf("\npoziom %d", i);
         it = iteratoryKolejnychPoziomow.at(i);
+		Gwiazda2 gwiazdaTemp = *it;
         kon = (i + 1 < iteratoryKolejnychPoziomow.size()) ? iteratoryKolejnychPoziomow.at(i + 1) : lGwiazdy.end();
         //kopiowanie numerow do listy, należy znaleźć miejsce od którego można uzupełniać tablicę kolejneHipZnazw
         //pola ileGwiazdWgwiazdozbiorze oraz pozycjaKolejnegoGwiazdozbioru dadzą informację do którego miejsca tablica jest zajęta

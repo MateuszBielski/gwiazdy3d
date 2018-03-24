@@ -330,7 +330,8 @@ void RysujGwiazdy::ZaznaczGwiazde(float kamX, float kamY, float kamZ, int idPunk
 
 
 void RysujGwiazdy::WydzielWybraneGwiazdozbiory(int nrGwiazdozbioru, int ilePozycji) {
-    for (int i = 0; i < punkty->voGwiazdozbior.size(); i++) {
+    int voGwiazdozbiorSize = punkty->voGwiazdozbior.size();
+	for (int i = 0; i < voGwiazdozbiorSize; i++) {
         punkty->voGwiazdozbior.at(i)->PrzekazGwiazdyDoBazy(oBaza);
         if (punkty->voGwiazdozbior.at(i) != 0) delete punkty->voGwiazdozbior.at(i);
         punkty->voGwiazdozbior.at(i) = 0;

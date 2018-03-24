@@ -202,7 +202,7 @@ LRESULT CALLBACK COknoGL::ProceduraZasadnicza(HWND hWnd, UINT message, WPARAM wP
                     break;
                 case 'N'://wyświetlanie najbliższych gwiazd
                     try{//może się zdarzyć, że zbiór najbliższych nie istnieje
-                        wRG->WydzielWybraneGwiazdozbiory(196, 1); //nie dorysowuje do istniejących, bo nie ma i nie tworzy z zaznaczonej, bo nie zaznaczona
+                        wRG->WydzielWybraneGwiazdozbiory(192, 1); //nie dorysowuje do istniejących, bo nie ma i nie tworzy z zaznaczonej, bo nie zaznaczona
                         wRG->PrzygotujPunkty(WSZYSTKIE_W_PRZESTRZENI | LINIE | NA_SFERZE | W_PRZESTRZENI);
                     }catch(std::exception &e){
                         printf("\nnie mozna pokazac najblizszych gwiazd");
